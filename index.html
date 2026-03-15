@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +24,15 @@
 
     <!-- Spline Viewer Script -->
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.30/build/spline-viewer.js"></script>
+
+    <meta name="description"
+        content="CENESSOD — Inteligencia demográfica y social para decisiones estratégicas basadas en datos." />
+
+    <meta property="og:title" content="CENESSOD" />
+    <meta property="og:description" content="Inteligencia demográfica y social basada en datos." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cenessod.com" />
+
 </head>
 
 <body>
@@ -145,10 +156,11 @@
                     <img src="media/data-dashboard.jpg" alt="Data analytics dashboard with charts and indicators">
                 </div>
                 <div class="services-grid-full">
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-right">
                         <div class="service-number">01</div>
-                        <h3 data-es="Estudios de opinión pública" data-en="Public opinion studies">Estudios de opinión
-                            pública</h3>
+                        <h3 data-es="Estudios de opinión pública" data-en="Public opinion studies">
+                            Estudios de opinión pública
+                        </h3>
                         <p data-es="Medimos percepciones, clima social, aprobación, intención y posicionamiento con metodologías rigurosas y resultados accionables."
                             data-en="We measure perceptions, social climate, approval, intention, and positioning through rigorous methodologies and actionable results.">
                             Medimos percepciones, clima social, aprobación, intención y posicionamiento con metodologías
@@ -165,7 +177,7 @@
                         </ul>
                     </article>
 
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-down">
                         <div class="service-number">02</div>
                         <h3 data-es="Investigación para sector privado" data-en="Private sector research">Investigación
                             para
@@ -188,7 +200,7 @@
                         </ul>
                     </article>
 
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-left">
                         <div class="service-number">03</div>
                         <h3 data-es="Censos y mapeo comunitario" data-en="Census and community mapping">Censos y mapeo
                             comunitario</h3>
@@ -212,7 +224,7 @@
                         </ul>
                     </article>
 
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-right">
                         <div class="service-number">04</div>
                         <h3 data-es="Evaluación de impacto social" data-en="Social impact evaluation">Evaluación de
                             impacto
@@ -235,7 +247,7 @@
                         </ul>
                     </article>
 
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-up">
                         <div class="service-number">05</div>
                         <h3 data-es="Proyecciones demográficas" data-en="Demographic projections">Proyecciones
                             demográficas
@@ -259,7 +271,7 @@
                         </ul>
                     </article>
 
-                    <article class="service-card-full fade-up">
+                    <article class="service-card-full" data-aos="fade-left">
                         <div class="service-number">06</div>
                         <h3 data-es="Análisis y visualización de datos" data-en="Data analysis and visualization">
                             Análisis y
@@ -552,6 +564,55 @@
         fadeElements.forEach((el) => fadeObserver.observe(el));
     </script>
     <script src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+    <div id="particles"></div>
+
+    <script>
+        tsParticles.load("particles", {
+            background: {
+                color: "transparent"
+            },
+            particles: {
+                number: { value: 40 },
+                color: { value: "#00c6c6" },
+                links: {
+                    enable: true,
+                    distance: 200,
+                    color: "#00c6c6",
+                    opacity: 0.3,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1
+                },
+                size: { value: 2 }
+            }
+        });
+    </script>
+
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.querySelector("header");
+
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        });
+    </script>
+
 </body>
 
 </html>
