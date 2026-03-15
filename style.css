@@ -989,3 +989,9 @@ header.scrolled {
   background: #0b0f14;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
+
+.form-success-message {
+  margin-top: 18px;
+  color: #9ee6d8;
+  font-weight: 600;
+}
