@@ -444,22 +444,35 @@
                 <p data-es="¿Listo para transformar tu organización con datos reales?"
                     data-en="Ready to transform your organization with real data?">¿Listo para transformar tu
                     organización con datos reales?</p>
-                <form class="contact-form">
+                <form action="https://formsubmit.co/carlosj.herg@gmail.com" method="POST" class="contact-form">
+                    <input type="hidden" name="_subject" value="Nuevo mensaje desde cenessod.com">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://cenessod.com/?sent=1">
+
+                    <input type="text" name="_honey" style="display:none">
+
                     <div class="form-group">
-                        <input type="text" placeholder="Nombre completo" data-placeholder-es="Nombre completo"
-                            data-placeholder-en="Full name" required>
+                        <input type="text" name="name" placeholder="Nombre" required>
                     </div>
+
                     <div class="form-group">
-                        <input type="email" placeholder="Correo electrónico" data-placeholder-es="Correo electrónico"
-                            data-placeholder-en="Email address" required>
+                        <input type="email" name="email" placeholder="Correo electrónico" required>
                     </div>
+
                     <div class="form-group">
-                        <textarea placeholder="Tu mensaje o proyecto" data-placeholder-es="Tu mensaje o proyecto"
-                            data-placeholder-en="Your message or project" required></textarea>
+                        <input type="text" name="subject" placeholder="Asunto" required>
                     </div>
-                    <button type="submit" class="btn-primary btn-block" data-es="Enviar Mensaje"
-                        data-en="Send Message">Enviar Mensaje</button>
+
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Escribe tu mensaje" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-block">Enviar mensaje</button>
                 </form>
+
+                <p id="form-success" class="form-success-message" style="display:none;">
+                    Gracias. Tu mensaje fue enviado correctamente.
+                </p>
             </div>
         </div>
     </section>
@@ -611,6 +624,16 @@
                 header.classList.remove("scrolled");
             }
         });
+    </script>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('sent') === '1') {
+            const successMessage = document.getElementById('form-success');
+            if (successMessage) {
+                successMessage.style.display = 'block';
+            }
+        }
     </script>
 
 </body>
