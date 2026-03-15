@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CENESSOD | Inteligencia Demográfica y Social</title>
+    <meta name="description"
+        content="Centro de Estudios Sociales y Demográficos. Impulsando el cambio social con datos.">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Fonts: Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Spline Viewer Script -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.30/build/spline-viewer.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
+                    class="logo-inverted">
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <ul class="nav-links">
+                        <li><a href="#analysis" data-es="Análisis" data-en="Insights">Análisis</a></li>
+                        <li><a href="#vision" data-es="Visión" data-en="Vision">Visión</a></li>
+                        <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
+                        <li><a href="#about" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
+                        <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                    </ul>
+                </ul>
+
+                <div class="nav-actions">
+                    <div class="lang-selector" id="langSelector">
+                        <button class="lang-btn" id="langBtn">
+                            <i class="fa-solid fa-globe"></i>
+                            <span class="lang-text">ES</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-dropdown">
+                            <a href="#" class="lang-option active" data-lang="es">Español</a>
+                            <a href="#" class="lang-option" data-lang="en">English</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section: Driven by Spline -->
+    <section class="hero">
+        <spline-viewer url="https://prod.spline.design/MDtR6qQ0uVWA1jtM/scene.splinecode"
+            class="spline-scene"></spline-viewer>
+        <div class="hero-content">
+            <h1>
+                <span data-es="Impulsando el cambio social" data-en="Driving social change">Impulsando el cambio
+                    social</span>
+                <span class="text-gradient" data-es="con datos" data-en="with data">con datos</span>
+            </h1>
+            <p class="hero-subtitle"
+                data-es="Generamos inteligencia demográfica y social para fortalecer la toma de decisiones estratégicas de manera profesional y eficiente."
+                data-en="We generate demographic and social intelligence to strengthen strategic decision-making in a professional and efficient manner.">
+                Generamos inteligencia demográfica y social para fortalecer la toma de decisiones estratégicas de manera
+                profesional y eficiente.
+            </p>
+            <a href="#contact" class="btn-primary" data-es="Contáctanos" data-en="Contact Us">Contáctanos</a>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="section section-dark">
+        <div class="container text-center">
+            <h2 class="section-title" data-es="Nuestra Visión" data-en="Our Vision">Nuestra Visión</h2>
+            <p class="section-subtitle"
+                data-es="Comprender la realidad social mediante evidencia rigurosa y análisis estratégico."
+                data-en="Understanding social realities through rigorous evidence and strategic analysis.">Convertimos
+                información compleja en conocimiento estratégico para comprender dinámicas sociales, orientar políticas
+                públicas y apoyar decisiones institucionales.</p>
+            <div class="vision-grid">
+                <div class="vision-card fade-up">
+                    <div class="icon-glow"><i class="fa-solid fa-microchip"></i></div>
+                    <h3 data-es="Inteligencia de Datos" data-en="Data Intelligence">Inteligencia de Datos</h3>
+                    <p data-es="Aplicamos métodos estadísticos y análisis avanzado para comprender patrones demográficos, sociales y territoriales con precisión."
+                        data-en="We apply statistical methods and advanced analytics to understand demographic, social, and territorial patterns with precision.">
+                        Aplicamos métodos estadísticos y análisis avanzado para comprender patrones demográficos,
+                        sociales y territoriales con precisión.</p>
+                </div>
+                <div class="vision-card fade-up">
+                    <div class="icon-glow"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 data-es="Impacto Social" data-en="Social Impact">Impacto Social</h3>
+                    <p data-es="Evaluamos programas, políticas e intervenciones sociales mediante metodologías rigurosas para identificar resultados y oportunidades de mejora."
+                        data-en="We evaluate programs, public policies, and social interventions using rigorous methodologies to identify outcomes and opportunities for improvement.">
+                        Medimos la
+                        efectividad de políticas públicas con rigor científico.</p>
+                </div>
+                <div class="vision-card fade-up">
+                    <div class="icon-glow"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 data-es="Evidencia Estratégica" data-en="Strategic Evidence">Evidencia Estratégica</h3>
+                    <p data-es="Convertimos datos y evidencia en insumos claros para apoyar decisiones estratégicas en gobiernos, organizaciones y empresas."
+                        data-en="We translate data and evidence into clear insights to support strategic decision-making in governments, organizations, and businesses.">
+                        Garantizamos la
+                        fidelidad de la información para la toma de decisiones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="services-section-header">
+                <span class="section-kicker" data-es="Soluciones estratégicas" data-en="Strategic solutions">Soluciones
+                    estratégicas</span>
+
+                <h2 class="section-title text-left"
+                    data-es="Servicios de investigación, análisis y consultoría para decisiones con sustento"
+                    data-en="Research, analysis, and consulting services for evidence-based decisions">
+                    Servicios de investigación, análisis y consultoría para decisiones con sustento
+                </h2>
+
+                <p class="services-intro"
+                    data-es="Diseñamos estudios de opinión pública, análisis demográfico, investigación social y soluciones de inteligencia de datos para gobiernos, organizaciones, campañas y empresas que necesitan comprender mejor a sus audiencias, territorios y mercados."
+                    data-en="We design public opinion studies, demographic analysis, social research, and data intelligence solutions for governments, organizations, campaigns, and companies that need to better understand their audiences, territories, and markets.">
+                    Diseñamos estudios de opinión pública, análisis demográfico, investigación social y soluciones de
+                    inteligencia de datos para gobiernos, organizaciones, campañas y empresas que necesitan comprender
+                    mejor a sus audiencias, territorios y mercados.
+                </p>
+            </div>
+            <div class="content-visual about-visual">
+                <div class="image-wrapper about-image-wrapper">
+                    <img src="media/data-dashboard.jpg" alt="Data analytics dashboard with charts and indicators">
+                </div>
+                <div class="services-grid-full">
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">01</div>
+                        <h3 data-es="Estudios de opinión pública" data-en="Public opinion studies">Estudios de opinión
+                            pública</h3>
+                        <p data-es="Medimos percepciones, clima social, aprobación, intención y posicionamiento con metodologías rigurosas y resultados accionables."
+                            data-en="We measure perceptions, social climate, approval, intention, and positioning through rigorous methodologies and actionable results.">
+                            Medimos percepciones, clima social, aprobación, intención y posicionamiento con metodologías
+                            rigurosas y resultados accionables.
+                        </p>
+                        <ul>
+                            <li data-es="Encuestas representativas y tracking"
+                                data-en="Representative surveys and tracking">Encuestas representativas y tracking</li>
+                            <li data-es="Estudios electorales y de imagen" data-en="Electoral and image studies">
+                                Estudios
+                                electorales y de imagen</li>
+                            <li data-es="Análisis de agenda y clima de opinión"
+                                data-en="Agenda and opinion climate analysis">Análisis de agenda y clima de opinión</li>
+                        </ul>
+                    </article>
+
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">02</div>
+                        <h3 data-es="Investigación para sector privado" data-en="Private sector research">Investigación
+                            para
+                            sector privado</h3>
+                        <p data-es="Ayudamos a marcas y empresas a entender a sus consumidores, validar propuestas y detectar oportunidades de mercado."
+                            data-en="We help brands and companies understand their consumers, validate proposals, and detect market opportunities.">
+                            Ayudamos a marcas y empresas a entender a sus consumidores, validar propuestas y detectar
+                            oportunidades de mercado.
+                        </p>
+                        <ul>
+                            <li data-es="Percepción de marca y reputación" data-en="Brand perception and reputation">
+                                Percepción de marca y reputación</li>
+                            <li data-es="Satisfacción y experiencia del cliente"
+                                data-en="Customer satisfaction and experience">Satisfacción y experiencia del cliente
+                            </li>
+                            <li data-es="Segmentación y comportamiento del consumidor"
+                                data-en="Segmentation and consumer behavior">Segmentación y comportamiento del
+                                consumidor
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">03</div>
+                        <h3 data-es="Censos y mapeo comunitario" data-en="Census and community mapping">Censos y mapeo
+                            comunitario</h3>
+                        <p data-es="Levantamos información territorial para diagnósticos, focalización de programas y planeación operativa de alta precisión."
+                            data-en="We collect territorial information for diagnostics, program targeting, and high-precision operational planning.">
+                            Levantamos información territorial para diagnósticos, focalización de programas y planeación
+                            operativa de alta precisión.
+                        </p>
+                        <ul>
+                            <li data-es="Mapeo de hogares, actores y servicios"
+                                data-en="Mapping of households, actors, and services">Mapeo de hogares, actores y
+                                servicios
+                            </li>
+                            <li data-es="Georreferenciación y cartografía social"
+                                data-en="Georeferencing and social cartography">Georreferenciación y cartografía social
+                            </li>
+                            <li data-es="Base de datos estructurada para intervención"
+                                data-en="Structured database for intervention">Base de datos estructurada para
+                                intervención
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">04</div>
+                        <h3 data-es="Evaluación de impacto social" data-en="Social impact evaluation">Evaluación de
+                            impacto
+                            social</h3>
+                        <p data-es="Medimos resultados y cambios atribuibles en programas, políticas e iniciativas con enfoque cuantitativo y cualitativo."
+                            data-en="We measure results and attributable changes in programs, policies, and initiatives through quantitative and qualitative approaches.">
+                            Medimos resultados y cambios atribuibles en programas, políticas e iniciativas con enfoque
+                            cuantitativo y cualitativo.
+                        </p>
+                        <ul>
+                            <li data-es="Líneas base, seguimiento y cierre" data-en="Baselines, follow-up, and closure">
+                                Líneas base, seguimiento y cierre</li>
+                            <li data-es="Indicadores y marcos de evaluación"
+                                data-en="Indicators and evaluation frameworks">
+                                Indicadores y marcos de evaluación</li>
+                            <li data-es="Análisis de resultados para toma de decisión"
+                                data-en="Results analysis for decision-making">Análisis de resultados para toma de
+                                decisión
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">05</div>
+                        <h3 data-es="Proyecciones demográficas" data-en="Demographic projections">Proyecciones
+                            demográficas
+                        </h3>
+                        <p data-es="Construimos estimaciones poblacionales y modelos de cambio para planeación territorial, social y de mercado."
+                            data-en="We build population estimates and change models for territorial, social, and market planning.">
+                            Construimos estimaciones poblacionales y modelos de cambio para planeación territorial,
+                            social y
+                            de mercado.
+                        </p>
+                        <ul>
+                            <li data-es="Estimaciones de crecimiento poblacional" data-en="Population growth estimates">
+                                Estimaciones de crecimiento poblacional</li>
+                            <li data-es="Análisis de estructura por edad y territorio"
+                                data-en="Age and territorial structure analysis">Análisis de estructura por edad y
+                                territorio</li>
+                            <li data-es="Escenarios prospectivos y demanda futura"
+                                data-en="Prospective scenarios and future demand">Escenarios prospectivos y demanda
+                                futura
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="service-card-full fade-up">
+                        <div class="service-number">06</div>
+                        <h3 data-es="Análisis y visualización de datos" data-en="Data analysis and visualization">
+                            Análisis y
+                            visualización de datos</h3>
+                        <p data-es="Convertimos bases complejas en evidencia clara mediante dashboards, reportes ejecutivos y visualizaciones orientadas a decisión."
+                            data-en="We turn complex datasets into clear evidence through dashboards, executive reports, and decision-oriented visualizations.">
+                            Convertimos bases complejas en evidencia clara mediante dashboards, reportes ejecutivos y
+                            visualizaciones orientadas a decisión.
+                        </p>
+                        <ul>
+                            <li data-es="Dashboards e informes ejecutivos" data-en="Dashboards and executive reports">
+                                Dashboards e informes ejecutivos</li>
+                            <li data-es="Modelos estadísticos y cruces analíticos"
+                                data-en="Statistical models and analytical cross-tabs">Modelos estadísticos y cruces
+                                analíticos</li>
+                            <li data-es="Storytelling visual para audiencias directivas"
+                                data-en="Visual storytelling for executive audiences">Storytelling visual para
+                                audiencias
+                                directivas</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section section-darker">
+        <div class="container">
+            <div class="split-content reverse about-layout">
+                <div class="content-text about-text">
+                    <span class="section-kicker" data-es="Quiénes somos" data-en="Who we are">Quiénes somos</span>
+
+                    <h2 class="section-title text-left"
+                        data-es="Rigor técnico, comprensión social y capacidad analítica para decisiones complejas"
+                        data-en="Technical rigor, social understanding, and analytical capability for complex decisions">
+                        Rigor técnico, comprensión social y capacidad analítica para decisiones complejas
+                    </h2>
+
+                    <p class="about-intro"
+                        data-es="El Centro de Estudios Sociales y Demográficos es un socio estratégico para instituciones públicas, organizaciones, campañas y empresas que necesitan evidencia confiable para comprender su entorno, evaluar escenarios y tomar decisiones con sustento."
+                        data-en="The Center for Social and Demographic Studies is a strategic partner for public institutions, organizations, campaigns, and companies that need reliable evidence to understand their environment, assess scenarios, and make informed decisions.">
+                        El Centro de Estudios Sociales y Demográficos es un socio estratégico para instituciones
+                        públicas, organizaciones, campañas y empresas que necesitan evidencia confiable para comprender
+                        su entorno, evaluar escenarios y tomar decisiones con sustento.
+                    </p>
+
+                    <p data-es="Nuestro equipo multidisciplinario integra sociología, demografía, estadística, investigación aplicada y visualización de datos para convertir información compleja en diagnósticos claros, hallazgos útiles y productos ejecutivos de alto valor."
+                        data-en="Our multidisciplinary team integrates sociology, demography, statistics, applied research, and data visualization to turn complex information into clear diagnostics, useful findings, and high-value executive products.">
+                        Nuestro equipo multidisciplinario integra sociología, demografía, estadística, investigación
+                        aplicada y visualización de datos para convertir información compleja en diagnósticos claros,
+                        hallazgos útiles y productos ejecutivos de alto valor.
+                    </p>
+
+                    <div class="about-highlights">
+                        <div class="about-highlight-card fade-up">
+                            <h3 data-es="Enfoque multidisciplinario" data-en="Multidisciplinary approach">Enfoque
+                                multidisciplinario</h3>
+                            <p data-es="Combinamos ciencias sociales, análisis estadístico y tecnología aplicada."
+                                data-en="We combine social sciences, statistical analysis, and applied technology.">
+                                Combinamos ciencias sociales, análisis estadístico y tecnología aplicada.
+                            </p>
+                        </div>
+
+                        <div class="about-highlight-card fade-up">
+                            <h3 data-es="Decisiones basadas en evidencia" data-en="Evidence-based decisions">Decisiones
+                                basadas en evidencia</h3>
+                            <p data-es="Diseñamos estudios y análisis orientados a sustentar decisiones reales."
+                                data-en="We design studies and analyses aimed at supporting real decisions.">
+                                Diseñamos estudios y análisis orientados a sustentar decisiones reales.
+                            </p>
+                        </div>
+
+                        <div class="about-highlight-card fade-up">
+                            <h3 data-es="Rigor metodológico" data-en="Methodological rigor">Rigor metodológico</h3>
+                            <p data-es="Aplicamos metodologías cuantitativas y cualitativas con criterios técnicos sólidos."
+                                data-en="We apply quantitative and qualitative methodologies with solid technical criteria.">
+                                Aplicamos metodologías cuantitativas y cualitativas con criterios técnicos sólidos.
+                            </p>
+                        </div>
+
+                        <div class="about-highlight-card fade-up">
+                            <h3 data-es="Comunicación clara" data-en="Clear communication">Comunicación clara</h3>
+                            <p data-es="Traducimos datos complejos en reportes, visualizaciones e insights accionables."
+                                data-en="We translate complex data into reports, visualizations, and actionable insights.">
+                                Traducimos datos complejos en reportes, visualizaciones e insights accionables.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-pillars">
+                        <span data-es="Sociología" data-en="Sociology">Sociología</span>
+                        <span data-es="Demografía" data-en="Demography">Demografía</span>
+                        <span data-es="Estadística" data-en="Statistics">Estadística</span>
+                        <span data-es="Investigación aplicada" data-en="Applied research">Investigación aplicada</span>
+                        <span data-es="Visualización de datos" data-en="Data visualization">Visualización de
+                            datos</span>
+                        <span data-es="Consultoría estratégica" data-en="Strategic consulting">Consultoría
+                            estratégica</span>
+                    </div>
+                </div>
+
+                <div class="content-visual about-visual">
+                    <div class="image-wrapper about-image-wrapper">
+                        <img src="media/jakub-zerdzicki-5LkuVc2V7z4-unsplash.jpg" alt="Office Environment">
+                    </div>
+
+                    <div class="about-side-card">
+                        <h4 data-es="Lo que nos distingue" data-en="What sets us apart">Lo que nos distingue</h4>
+                        <p data-es="Integramos investigación social, análisis técnico y presentación ejecutiva para que la evidencia sea útil, clara y estratégicamente relevante."
+                            data-en="We integrate social research, technical analysis, and executive presentation so that evidence is useful, clear, and strategically relevant.">
+                            Integramos investigación social, análisis técnico y presentación ejecutiva para que la
+                            evidencia sea útil, clara y estratégicamente relevante.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analysis Section -->
+    <section id="analysis" class="section section-dark">
+        <div class="container">
+
+            <h2 class="section-title text-center" data-es="Análisis" data-en="Insights">
+                Análisis
+            </h2>
+
+            <p class="section-subtitle text-center"
+                data-es="Notas breves de análisis sobre tendencias sociales, demográficas y de opinión pública."
+                data-en="Brief analytical notes on social, demographic, and public opinion trends.">
+                Notas breves de análisis sobre tendencias sociales, demográficas y de opinión pública.
+            </p>
+
+            <div class="analysis-grid">
+
+                <article class="analysis-card fade-up">
+                    <span class="analysis-date">Mar 2025</span>
+                    <h3>Tendencias demográficas en América Latina hacia 2030</h3>
+                    <p>Envejecimiento poblacional, urbanización acelerada y cambios en la estructura etaria redefinen
+                        las demandas sociales en la región.</p>
+                    <a href="#" class="analysis-link">Leer análisis</a>
+                </article>
+
+                <article class="analysis-card fade-up">
+                    <span class="analysis-date">Feb 2025</span>
+                    <h3>Clima de opinión pública en contextos de inflación</h3>
+                    <p>El aumento sostenido de precios está reconfigurando percepciones económicas y expectativas sobre
+                        la gestión gubernamental.</p>
+                    <a href="#" class="analysis-link">Leer análisis</a>
+                </article>
+
+                <article class="analysis-card fade-up">
+                    <span class="analysis-date">Ene 2025</span>
+                    <h3>Evaluación de impacto en programas sociales territoriales</h3>
+                    <p>La medición rigurosa de resultados permite identificar efectos reales de políticas públicas y
+                        mejorar el diseño de intervenciones.</p>
+                    <a href="#" class="analysis-link">Leer análisis</a>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-box">
+                <h2 class="section-title" data-es="Contáctanos" data-en="Contact Us">Contáctanos</h2>
+                <p data-es="¿Listo para transformar tu organización con datos reales?"
+                    data-en="Ready to transform your organization with real data?">¿Listo para transformar tu
+                    organización con datos reales?</p>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nombre completo" data-placeholder-es="Nombre completo"
+                            data-placeholder-en="Full name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Correo electrónico" data-placeholder-es="Correo electrónico"
+                            data-placeholder-en="Email address" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Tu mensaje o proyecto" data-placeholder-es="Tu mensaje o proyecto"
+                            data-placeholder-en="Your message or project" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary btn-block" data-es="Enviar Mensaje"
+                        data-en="Send Message">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <img src="media/logo red 1 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
+                        class="logo-inverted-footer">
+                    <p data-es="© 2026 CENESSOD. Todos los derechos reservados."
+                        data-en="© 2026 CENESSOD. All rights reserved.">© 2026 CENESSOD. Todos los derechos reservados.
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" data-es="Privacidad" data-en="Privacy">Privacidad</a>
+                    <a href="#" data-es="Términos" data-en="Terms">Términos</a>
+                    <a href="#" data-es="LinkedIn" data-en="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSelector = document.getElementById('langSelector');
+            const langBtn = document.getElementById('langBtn');
+            const langText = langBtn.querySelector('.lang-text');
+            const langOptions = document.querySelectorAll('.lang-option');
+
+            const translatePage = (lang) => {
+                const elements = document.querySelectorAll('[data-es]');
+                elements.forEach(el => {
+                    const translation = el.getAttribute(`data-${lang}`);
+                    if (translation) {
+                        el.textContent = translation;
+                    }
+                });
+
+                // Translate Placeholders
+                const inputs = document.querySelectorAll('[data-placeholder-es]');
+                inputs.forEach(input => {
+                    const placeholder = input.getAttribute(`data-placeholder-${lang}`);
+                    if (placeholder) {
+                        input.placeholder = placeholder;
+                    }
+                });
+
+                // Update Button UI
+                langText.textContent = lang.toUpperCase();
+                langOptions.forEach(opt => {
+                    opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+                });
+
+                // Save Preference
+                localStorage.setItem('preferredLang', lang);
+                document.documentElement.lang = lang;
+            };
+
+            // Toggle Dropdown
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langSelector.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                langSelector.classList.remove('active');
+            });
+
+            // Handle Selection
+            langOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = option.getAttribute('data-lang');
+                    translatePage(lang);
+                    langSelector.classList.remove('active');
+                });
+            });
+
+            // Initialize from LocalStorage or default
+            const initialLang = localStorage.getItem('preferredLang') || 'es';
+            translatePage(initialLang);
+        });
+    </script>
+    <!-- Scroll Animation Script -->
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        fadeElements.forEach((el) => fadeObserver.observe(el));
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
