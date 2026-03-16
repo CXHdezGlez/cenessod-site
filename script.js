@@ -65,23 +65,34 @@ const mobileMenuPanel = document.getElementById("mobileMenuPanel");
 const mobileMenuOverlay = document.getElementById("mobileMenuOverlay");
 const mobileMenuClose = document.getElementById("mobileMenuClose");
 const mobileMenuLinks = document.querySelectorAll(".mobile-menu-links a");
+const mobileLangBtn = document.getElementById("mobileLangBtn");
+const desktopLangBtn = document.getElementById("langBtn");
 
 function openMobileMenu() {
   mobileMenuPanel.classList.add("active");
   mobileMenuOverlay.classList.add("active");
   document.body.classList.add("menu-open");
-  if (menuToggle) menuToggle.setAttribute("aria-expanded", "true");
+  menuToggle.classList.add("active");
+  menuToggle.setAttribute("aria-expanded", "true");
 }
 
 function closeMobileMenu() {
   mobileMenuPanel.classList.remove("active");
   mobileMenuOverlay.classList.remove("active");
   document.body.classList.remove("menu-open");
-  if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.classList.remove("active");
+  menuToggle.setAttribute("aria-expanded", "false");
 }
 
 if (menuToggle) {
-  menuToggle.addEventListener("click", openMobileMenu);
+  menuToggle.addEventListener("click", () => {
+    const isOpen = mobileMenuPanel.classList.contains("active");
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
 }
 
 if (mobileMenuClose) {
@@ -101,9 +112,6 @@ document.addEventListener("keydown", (event) => {
     closeMobileMenu();
   }
 });
-
-const mobileLangBtn = document.getElementById("mobileLangBtn");
-const desktopLangBtn = document.getElementById("langBtn");
 
 if (mobileLangBtn && desktopLangBtn) {
   mobileLangBtn.addEventListener("click", () => {
