@@ -1815,7 +1815,7 @@ header.scrolled {
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   position: relative;
-  z-index: 1400;
+  z-index: 1401;
 }
 
 .menu-toggle:hover {
@@ -1831,6 +1831,15 @@ header.scrolled {
   background: var(--color-text-primary);
   transition: transform 0.32s ease, opacity 0.22s ease, width 0.32s ease;
   transform-origin: center;
+}
+
+.menu-toggle.active {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 1501;
+  background: rgba(18, 20, 28, 0.92);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .menu-toggle.active span:nth-child(1) {
@@ -1872,7 +1881,6 @@ header.scrolled {
   border-left: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: -20px 0 50px rgba(0, 0, 0, 0.35);
   transform: translateX(100%);
-  opacity: 0.98;
   transition: transform 0.36s ease;
   z-index: 1300;
   padding: 24px 22px 28px;
