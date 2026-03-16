@@ -68,6 +68,10 @@ const mobileMenuLinks = document.querySelectorAll(".mobile-menu-links a");
 const mobileLangBtn = document.getElementById("mobileLangBtn");
 const desktopLangBtn = document.getElementById("langBtn");
 
+function isMenuOpen() {
+  return mobileMenuPanel.classList.contains("active");
+}
+
 function openMobileMenu() {
   mobileMenuPanel.classList.add("active");
   mobileMenuOverlay.classList.add("active");
@@ -84,15 +88,16 @@ function closeMobileMenu() {
   menuToggle.setAttribute("aria-expanded", "false");
 }
 
-if (menuToggle) {
-  menuToggle.addEventListener("click", () => {
-    const isOpen = mobileMenuPanel.classList.contains("active");
-    if (isOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  });
+function toggleMobileMenu() {
+  if (isMenuOpen()) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+if (menuToggle && mobileMenuPanel && mobileMenuOverlay) {
+  menuToggle.addEventListener("click", toggleMobileMenu);
 }
 
 if (mobileMenuClose) {
@@ -108,7 +113,7 @@ mobileMenuLinks.forEach((link) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
+  if (event.key === "Escape" && isMenuOpen()) {
     closeMobileMenu();
   }
 });
@@ -116,5 +121,6 @@ document.addEventListener("keydown", (event) => {
 if (mobileLangBtn && desktopLangBtn) {
   mobileLangBtn.addEventListener("click", () => {
     desktopLangBtn.click();
+    closeMobileMenu();
   });
 }
