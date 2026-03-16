@@ -101,3 +101,12 @@ document.addEventListener("keydown", (event) => {
     closeMobileMenu();
   }
 });
+
+const mobileLangBtn = document.getElementById("mobileLangBtn");
+const desktopLangBtn = document.getElementById("langBtn");
+
+if (mobileLangBtn && desktopLangBtn) {
+  mobileLangBtn.addEventListener("click", () => {
+    desktopLangBtn.click();
+  });
+}
