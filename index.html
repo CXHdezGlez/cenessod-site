@@ -559,7 +559,22 @@
         });
     </script>
     <!-- Scroll Animation Script -->
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
 
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+
+        fadeElements.forEach((el) => fadeObserver.observe(el));
+    </script>
     <script src="script.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
@@ -594,6 +609,18 @@
                     speed: 1
                 },
                 size: { value: 2 }
+            }
+        });
+    </script>
+
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.querySelector("header");
+
+            if (window.scrollY > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
             }
         });
     </script>
