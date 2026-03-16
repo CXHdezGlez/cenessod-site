@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CENESSOD | Inteligencia Demográfica y Social</title>
-    
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 
@@ -30,7 +29,7 @@
     <meta property="og:description" content="Inteligencia demográfica y social basada en datos." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cenessod.com" />
-    
+
     <link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="media/favicon.png">
     <link rel="apple-touch-icon" href="media/favicon.png">
@@ -39,27 +38,25 @@
 
 <body>
     <!-- Navigation -->
-    <header>
+    <header id="site-header">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" aria-label="Ir al inicio de CENESSOD">
                 <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
                     class="logo-inverted">
             </a>
 
-            <nav>
+            <nav aria-label="Navegación principal">
                 <ul class="nav-links">
-                    <ul class="nav-links">
-                        <li><a href="#analysis" data-es="Análisis" data-en="Insights">Análisis</a></li>
-                        <li><a href="#vision" data-es="Visión" data-en="Vision">Visión</a></li>
-                        <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
-                        <li><a href="#about" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
-                        <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
-                    </ul>
+                    <li><a href="#analysis" class="nav-link" data-es="Análisis" data-en="Insights">Análisis</a></li>
+                    <li><a href="#vision" class="nav-link" data-es="Visión" data-en="Vision">Visión</a></li>
+                    <li><a href="#services" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a></li>
+                    <li><a href="#about" class="nav-link" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
+                    <li><a href="#contact" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a></li>
                 </ul>
 
                 <div class="nav-actions">
                     <div class="lang-selector" id="langSelector">
-                        <button class="lang-btn" id="langBtn">
+                        <button class="lang-btn" id="langBtn" type="button" aria-label="Seleccionar idioma">
                             <i class="fa-solid fa-globe"></i>
                             <span class="lang-text">ES</span>
                             <i class="fa-solid fa-chevron-down"></i>
@@ -562,22 +559,7 @@
         });
     </script>
     <!-- Scroll Animation Script -->
-    <script>
-        const fadeElements = document.querySelectorAll('.fade-up');
 
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-
-        fadeElements.forEach((el) => fadeObserver.observe(el));
-    </script>
     <script src="script.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
@@ -612,18 +594,6 @@
                     speed: 1
                 },
                 size: { value: 2 }
-            }
-        });
-    </script>
-
-    <script>
-        window.addEventListener("scroll", function () {
-            const header = document.querySelector("header");
-
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
             }
         });
     </script>
