@@ -41,40 +41,69 @@
 
 <body>
     <!-- Navigation -->
-    <header id="site-header">
-        <div class="container nav-container">
-            <a href="#" class="logo" aria-label="Ir al inicio de CENESSOD">
-                <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
-                    class="logo-inverted">
-            </a>
+    <header>
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
+                class="logo-inverted">
+        </a>
 
-            <nav aria-label="Navegación principal">
-                <ul class="nav-links">
-                    <li><a href="#analysis" class="nav-link" data-es="Análisis" data-en="Insights">Análisis</a></li>
-                    <li><a href="#vision" class="nav-link" data-es="Visión" data-en="Vision">Visión</a></li>
-                    <li><a href="#services" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a></li>
-                    <li><a href="#capabilities" class="nav-link" data-es="Capacidades"
-                            data-en="Capabilities">Capacidades</a></li>
-                    <li><a href="#about" class="nav-link" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
-                    <li><a href="#contact" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a></li>
-                </ul>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#analysis" data-es="Análisis" data-en="Insights">Análisis</a></li>
+                <li><a href="#vision" data-es="Visión" data-en="Vision">Visión</a></li>
+                <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
+                <li><a href="#capabilities" data-es="Capacidades" data-en="Capabilities">Capacidades</a></li>
+                <li><a href="#about" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
+                <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
+            </ul>
 
-                <div class="nav-actions">
-                    <div class="lang-selector" id="langSelector">
-                        <button class="lang-btn" id="langBtn" type="button" aria-label="Seleccionar idioma">
-                            <i class="fa-solid fa-globe"></i>
-                            <span class="lang-text">ES</span>
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-                        <div class="lang-dropdown">
-                            <a href="#" class="lang-option active" data-lang="es">Español</a>
-                            <a href="#" class="lang-option" data-lang="en">English</a>
-                        </div>
+            <div class="nav-actions">
+                <div class="lang-selector" id="langSelector">
+                    <button class="lang-btn" id="langBtn">
+                        <i class="fa-solid fa-globe"></i>
+                        <span class="lang-text">ES</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-dropdown">
+                        <a href="#" class="lang-option active" data-lang="es">Español</a>
+                        <a href="#" class="lang-option" data-lang="en">English</a>
                     </div>
                 </div>
-            </nav>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="mobile-menu-links">
+            <a href="#analysis" data-es="Análisis" data-en="Insights">Análisis</a>
+            <a href="#vision" data-es="Visión" data-en="Vision">Visión</a>
+            <a href="#services" data-es="Servicios" data-en="Services">Servicios</a>
+            <a href="#capabilities" data-es="Capacidades" data-en="Capabilities">Capacidades</a>
+            <a href="#about" data-es="Nosotros" data-en="About Us">Nosotros</a>
+            <a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a>
         </div>
-    </header>
+
+        <div class="mobile-menu-footer">
+            <button class="mobile-lang-btn" id="mobileLangBtn">
+                <i class="fa-solid fa-globe"></i>
+                <span>ES / EN</span>
+            </button>
+        </div>
+    </div>
+</header>
 
     <!-- Hero Section: Driven by Spline -->
     <section class="hero">
