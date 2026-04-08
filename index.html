@@ -491,25 +491,7 @@
                                 </p>
                             </div>
 
-                            <div class="about-metrics-grid">
-                                <div class="about-metric-card">
-                                    <span class="about-metric-value" data-es="Rigor" data-en="Rigor">Rigor</span>
-                                    <span class="about-metric-label" data-es="Metodológico"
-                                        data-en="Methodological">Metodológico</span>
-                                </div>
 
-                                <div class="about-metric-card">
-                                    <span class="about-metric-value" data-es="Lectura" data-en="Insight">Lectura</span>
-                                    <span class="about-metric-label" data-es="Estratégica"
-                                        data-en="Strategic">Estratégica</span>
-                                </div>
-
-                                <div class="about-metric-card">
-                                    <span class="about-metric-value" data-es="Datos" data-en="Data">Datos</span>
-                                    <span class="about-metric-label" data-es="Accionables"
-                                        data-en="Actionable">Accionables</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -537,6 +519,30 @@
                         aplicada y visualización de datos para convertir información compleja en diagnósticos claros,
                         hallazgos útiles y productos ejecutivos de alto valor.
                     </p>
+                </div>
+
+                <div class="metrics-strip-wrapper fade-up" id="countersContainer">
+                    <div class="metrics-strip">
+                        <div class="metric-item">
+                            <span class="metric-value"><span class="counter" data-target="10">0</span><span class="metric-suffix">+</span></span>
+                            <span class="metric-label" data-es="Años de experiencia" data-en="Years of experience">Años de experiencia</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-value"><span class="counter" data-target="500">0</span><span class="metric-suffix">+</span></span>
+                            <span class="metric-label" data-es="Estudios realizados" data-en="Studies conducted">Estudios realizados</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-value"><span class="counter" data-target="5">0</span><span class="metric-suffix">M+</span></span>
+                            <span class="metric-label" data-es="Datos analizados" data-en="Data analyzed">Datos analizados</span>
+                        </div>
+
+                        <div class="metric-item">
+                            <span class="metric-value"><span class="counter" data-target="10">0</span><span class="metric-suffix">+</span></span>
+                            <span class="metric-label" data-es="Proyectos de impacto" data-en="Impact projects">Proyectos de impacto</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="about-highlights about-highlights-full">
@@ -691,22 +697,22 @@
                     <input type="text" name="_honey" style="display:none">
 
                     <div class="form-group">
-                        <input type="text" name="name" placeholder="Nombre" required>
+                        <input type="text" name="name" placeholder="Nombre" aria-label="Nombre completo" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Correo electrónico" required>
+                        <input type="email" name="email" placeholder="Correo electrónico" aria-label="Correo electrónico" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="subject" placeholder="Asunto" required>
+                        <input type="text" name="subject" placeholder="Asunto" aria-label="Asunto del mensaje" required>
                     </div>
 
                     <div class="form-group">
-                        <textarea name="message" placeholder="Escribe tu mensaje" required></textarea>
+                        <textarea name="message" placeholder="Escribe tu mensaje" aria-label="Contenido del mensaje" required></textarea>
                     </div>
 
-                    <button type="submit" class="btn-primary btn-block">Enviar mensaje</button>
+                    <button type="submit" class="btn-primary btn-block" aria-label="Enviar mensaje de contacto">Enviar mensaje</button>
                 </form>
 
                 <p id="form-success" class="form-success-message" style="display:none;">
