@@ -145,4 +145,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", handleCountersScroll);
   setTimeout(handleCountersScroll, 100);
+
+  // --- Analysis Report Modal Logic ---
+  const reportModal = document.getElementById("reportModal");
+  const openReportBtn = document.getElementById("openAnalysisReport");
+  const closeReportBtn = document.getElementById("closeReportModal");
+  const reportOverlay = document.getElementById("reportOverlay");
+
+  if (reportModal && openReportBtn) {
+    openReportBtn.addEventListener("click", () => {
+      reportModal.classList.add("active");
+      document.body.style.overflow = "hidden"; // Lock scroll
+      
+      // Render mermaid charts when modal opens
+      if (typeof mermaid !== 'undefined') {
+        mermaid.run({
+          querySelector: '.mermaid'
+        });
+      }
+    });
+
+    const closeReport = () => {
+      reportModal.classList.remove("active");
+      document.body.style.overflow = ""; // Unlock scroll
+    };
+
+    if (closeReportBtn) closeReportBtn.addEventListener("click", closeReport);
+    if (reportOverlay) reportOverlay.addEventListener("click", closeReport);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && reportModal.classList.contains("active")) {
+        closeReport();
+      }
+    });
+  }
 });

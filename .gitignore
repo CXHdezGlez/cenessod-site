@@ -1,0 +1,8 @@
+.agents/
+.gemini/
+.env
+*.webp
+*.png
+temp/
+scratch/
+node_modules/

@@ -1,0 +1,59 @@
+﻿Usage: gog calendar (cal) events (list,ls) [<calendarId>] [flags]
+Build: v0.12.0 (c18c58c)
+
+List events from a calendar or all calendars
+
+Arguments:
+  [<calendarId>]    Calendar ID (default: primary)
+
+Flags:
+  -h, --help                   Show context-sensitive help.
+      --color="auto"           Color output: auto|always|never
+  -a, --account=STRING         Account email for API commands
+                               (gmail/calendar/chat/classroom/drive/docs/slides/contacts/tasks/people/sheets/forms/appscript)
+      --client=""              OAuth client name (selects stored credentials +
+                               token bucket)
+      --access-token=STRING    Use provided access token directly (bypasses
+                               stored refresh tokens; token expires in ~1h)
+                               ($GOG_ACCESS_TOKEN)
+      --enable-commands=""     Comma-separated list of enabled top-level
+                               commands (restricts CLI)
+  -j, --json                   Output JSON to stdout (best for scripting)
+  -p, --plain                  Output stable, parseable text to stdout (TSV;
+                               no colors)
+      --results-only           In JSON mode, emit only the primary result (drops
+                               envelope fields like nextPageToken)
+      --select=STRING          In JSON mode, select comma-separated fields
+                               (best-effort; supports dot paths). Desire path:
+                               use --fields for most commands.
+  -n, --dry-run                Do not make changes; print intended actions and
+                               exit successfully
+  -y, --force                  Skip confirmations for destructive commands
+      --no-input               Never prompt; fail instead (useful for CI)
+  -v, --verbose                Enable verbose logging
+      --version                Print version and exit
+
+      --cal=CAL,...            Calendar ID or name (can be repeated)
+      --calendars=STRING       Comma-separated calendar IDs, names, or indices
+                               from 'calendar calendars'
+      --from=STRING            Start time (RFC3339 with timezone, date,
+                               or relative: today, tomorrow, monday)
+      --to=STRING              End time (RFC3339 with timezone, date,
+                               or relative)
+      --today                  Today only (timezone-aware)
+      --tomorrow               Tomorrow only (timezone-aware)
+      --week                   This week (uses --week-start, default Mon)
+      --days=0                 Next N days (timezone-aware)
+      --week-start=""          Week start day for --week (sun, mon, ...)
+      --max=10                 Max results
+      --page=STRING            Page token
+      --all-pages              Fetch all pages
+      --fail-empty             Exit with code 3 if no results
+      --query=STRING           Free text search
+      --all                    Fetch events from all calendars
+      --private-prop-filter=STRING
+                               Filter by private extended property (key=value)
+      --shared-prop-filter=STRING
+                               Filter by shared extended property (key=value)
+      --fields=STRING          Comma-separated fields to return
+      --weekday                Include start/end day-of-week columns

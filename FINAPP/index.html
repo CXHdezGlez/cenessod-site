@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinTrack | Modern Personal Finance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="theme-dark">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-infinity"></i></div>
+                <span>FinTrack</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#" data-view="dashboard"><i class="fa-solid fa-chart-pie"></i> Panel de Control</a></li>
+                <li><a href="#" data-view="transactions"><i class="fa-solid fa-list"></i> Transacciones</a></li>
+                <li><a href="#" data-view="wallets"><i class="fa-solid fa-wallet"></i> Billeteras</a></li>
+            </ul>
+            <div class="sidebar-bottom">
+                <button id="theme-toggle" class="btn-icon" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User Avatar" class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Alex Smith</span>
+                        <span class="user-email">Plan Pro</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="topbar">
+                <div class="greeting">
+                    <h1 id="page-title">Panel de Control</h1>
+                    <p class="subtitle">Bienvenido(a) de nuevo, revisemos tus finanzas.</p>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="btn-add-transaction">
+                        <i class="fa-solid fa-plus"></i> Nueva Transacción
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div class="view-section active" id="view-dashboard">
+                <div class="overview-cards">
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon income"><i class="fa-solid fa-arrow-up"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Ingresos / Mes</span>
+                            <h2 class="stat-value" id="stat-income">$0.00</h2>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-icon expense"><i class="fa-solid fa-arrow-down"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-label">Gastos / Mes</span>
+                            <h2 class="stat-value" id="stat-expenses">$0.00</h2>
+                        </div>
+                    </div>
+                    <div class="glass-card stat-card primary-gradient">
+                        <div class="stat-icon balance"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="stat-info text-white">
+                            <span class="stat-label">Balance Total</span>
+                            <h2 class="stat-value" id="stat-balance">$0.00</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="glass-card chart-container">
+                        <div class="card-header">
+                            <h3>Analíticas</h3>
+                            <select class="select-clean" id="chart-period">
+                                <option value="month">Este Mes</option>
+                                <option value="year">Este Año</option>
+                            </select>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="mainChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card chart-container">
+                        <div class="card-header">
+                            <h3>Gastos por Categoría</h3>
+                        </div>
+                        <div class="chart-wrapper pie-wrapper">
+                            <canvas id="pieChart"></canvas>
+                            <div class="pie-center-label" id="pie-total">$0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card recent-transactions">
+                    <div class="card-header">
+                        <h3>Transacciones Recientes</h3>
+                        <a href="#" class="view-all" data-nav="transactions">Ver Todo</a>
+                    </div>
+                    <div class="transaction-list" id="dashboard-tx-list">
+                        <!-- Transactions injected by JS -->
+                        <div class="empty-state">
+                            <i class="fa-solid fa-receipt"></i>
+                            <p>Sin transacciones recientes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transactions View -->
+            <div class="view-section" id="view-transactions">
+                <div class="glass-card full-height">
+                    <div class="card-header flex-between">
+                        <h3>Todas las Transacciones</h3>
+                        <div class="filters">
+                            <select class="select-clean" id="filter-type">
+                                <option value="all">Tipos (Todos)</option>
+                                <option value="income">Ingresos</option>
+                                <option value="expense">Gastos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="transaction-list extended" id="full-tx-list">
+                        <!-- Transactions injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallets View -->
+            <div class="view-section" id="view-wallets">
+                <div class="wallets-grid" id="wallets-container">
+                    <!-- Wallets injected by JS -->
+                </div>
+                <button class="btn btn-outline full-width mt-4" id="btn-add-wallet">
+                    <i class="fa-solid fa-plus"></i> Añadir Nueva Billetera
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for New Transaction -->
+    <div class="modal-overlay" id="tx-modal">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h2>Nueva Transacción</h2>
+                <button class="btn-close" id="close-modal"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <form id="tx-form" class="modal-body">
+                <div class="type-switcher">
+                    <button type="button" class="type-btn active" data-type="expense">Gasto</button>
+                    <button type="button" class="type-btn" data-type="income">Ingreso</button>
+                </div>
+                
+                <div class="form-group amount-group">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="tx-amount" step="0.01" min="0.01" placeholder="0.00" required autofocus>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tx-category">Categoría</label>
+                        <select id="tx-category" required>
+                            <option value="" disabled selected>Seleccionar categoría...</option>
+                            <!-- Options injected by JS -->
+                        </select>
+                        <input type="text" id="tx-new-category" placeholder="Nombre de categoría..." style="display: none; margin-top: 0.5rem;">
+                    </div>
+                    <div class="form-group">
+                        <label for="tx-wallet">Billetera</label>
+                        <select id="tx-wallet" required>
+                            <!-- Options injected by JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tx-date">Fecha</label>
+                    <input type="date" id="tx-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tx-note">Nota (Opcional)</label>
+                    <input type="text" id="tx-note" placeholder="¿Para qué fue esto?">
+                </div>
+
+                <button type="submit" class="btn btn-primary full-width modal-submit">Guardar Transacción</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for New Wallet -->
+    <div class="modal-overlay" id="wallet-modal">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h2>Nueva Billetera</h2>
+                <button class="btn-close" id="close-wallet-modal"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <form id="wallet-form" class="modal-body">
+                <div class="form-group">
+                    <label for="wallet-name">Nombre de Billetera</label>
+                    <input type="text" id="wallet-name" placeholder="ej. Cuenta de Ahorros" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="wallet-balance">Balance Inicial</label>
+                    <div class="amount-group" style="margin-bottom: 0;">
+                        <span class="currency-symbol" style="font-size: 1.5rem;">$</span>
+                        <input type="number" id="wallet-balance" step="0.01" placeholder="0.00" value="0.00" required style="font-size: 1.5rem; padding-left: 2rem;">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary full-width modal-submit">Crear Billetera</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="charts.js?v=2"></script>
+    <script src="app.js?v=3"></script>
+</body>
+</html>

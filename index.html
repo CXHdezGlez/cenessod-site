@@ -9,6 +9,15 @@
     <title>CENESSOD | Inteligencia Demográfica y Social</title>
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
+    <!-- Mermaid.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            securityLevel: 'loose',
+        });
+    </script>
 
     <!-- Fonts: Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -631,7 +640,7 @@
                         las
                         demandas sociales, territoriales y de política pública en la región.
                     </p>
-                    <a href="#" class="analysis-link" data-es="Leer análisis" data-en="Read analysis">Leer análisis</a>
+                    <button class="analysis-link" id="openAnalysisReport" data-es="Leer análisis" data-en="Read analysis">Leer análisis</button>
                 </article>
 
                 <article class="analysis-card fade-up">
@@ -778,6 +787,111 @@
             © 2025 CENESSOD
         </div>
     </footer>
+    <!-- Analysis Report Modal -->
+    <div id="reportModal" class="report-modal">
+        <div class="modal-overlay" id="reportOverlay"></div>
+        <div class="modal-wrapper fade-up">
+            <button id="closeReportModal" class="close-modal" aria-label="Cerrar reporte">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-body">
+                <div class="report-header">
+                    <span class="report-tag">Demografía</span>
+                    <h1>Tendencias demográficas en América Latina hacia 2030</h1>
+                    <div class="report-meta">
+                        <span class="meta-item"><i class="fa-regular fa-calendar"></i> Mar 2025</span>
+                        <span class="meta-item"><i class="fa-regular fa-clock"></i> 8 min de lectura</span>
+                    </div>
+                </div>
+
+                <div class="report-content">
+                    <h2>Resumen ejecutivo</h2>
+                    <p>La región se aproxima a 2030 con un perfil demográfico marcado por tres fuerzas simultáneas: (i) menor crecimiento poblacional, (ii) fecundidad persistentemente por debajo del reemplazo en la mayoría de países y (iii) aceleración del envejecimiento, todo ello sobre una base altamente urbanizada. Estas tendencias no son homogéneas: conviven países de envejecimiento rápido (por ejemplo, Brasil) con subregiones aún relativamente jóvenes (Centroamérica), y países receptores netos de migración en el corto plazo (como Colombia) con otros de fuerte emigración histórica (Caribe).</p>
+
+                    <p>En el escenario “variante media” de Naciones Unidas, la población de <strong>América Latina y el Caribe</strong> pasa de <strong>588.9 millones (2010)</strong> a <strong>667.9 millones (2025)</strong> y <strong>687.7 millones (2030)</strong>, mientras la tasa de crecimiento anual se reduce aproximadamente a la mitad (de ~1.07% en 2010 a ~0.53% en 2030).</p>
+
+                    <p>La transición hacia familias más pequeñas es central: la TFR regional cae de <strong>~2.18 (2010)</strong> a <strong>~1.78 (2025)</strong> y <strong>~1.74 (2030)</strong>; diagnósticos regionales recientes ya sitúan la fecundidad consolidada en torno a niveles bajos (≈1.8) y advierten que sostener ritmos de crecimiento pasados será cada vez más difícil.</p>
+
+                    <p>La región envejece con rapidez: la <strong>edad mediana</strong> sube de <strong>~26.4 años (2010)</strong> a <strong>~31.7 (2025)</strong> y <strong>~33.6 (2030)</strong>, con incrementos especialmente rápidos en países grandes como Brasil.</p>
+
+                    <h2>Panorama cuantitativo reciente</h2>
+                    <h3>Dos visualizaciones para entender la dirección del cambio</h3>
+
+                    <div class="chart-container">
+                        <pre class="mermaid">
+xychart-beta
+  title "Población total (2010–2030)"
+  x-axis [2010, 2015, 2020, 2025, 2030]
+  y-axis "Millones de personas" 0 --> 700
+  line "América Latina y el Caribe" [588.9, 620.0, 646.7, 667.9, 687.7]
+  line "Brasil" [193.7, 201.7, 208.7, 212.8, 216.1]
+  line "México" [113.6, 121.1, 126.8, 131.9, 136.9]
+  line "Argentina" [41.3, 43.5, 45.2, 45.9, 46.6]
+  line "Colombia" [44.8, 47.0, 50.6, 53.4, 55.7]
+  line "Perú" [29.1, 30.5, 32.8, 34.6, 36.2]
+                        </pre>
+                        <p class="chart-caption">Figura 1. La población regional continúa aumentando hacia 2030, pero con pendientes (crecimientos) cada vez menores; la mayor parte del volumen poblacional se concentra en Brasil y México. Fuente: WPP 2024.</p>
+                    </div>
+
+                    <div class="chart-container">
+                        <pre class="mermaid">
+xychart-beta
+  title "Envejecimiento medido por la edad mediana (2010–2030)"
+  x-axis [2010, 2015, 2020, 2025, 2030]
+  y-axis "Edad mediana (años)" 20 --> 40
+  line "América Latina y el Caribe" [26.4, 28.1, 29.9, 31.7, 33.6]
+  line "Brasil" [28.2, 30.5, 32.7, 34.8, 36.9]
+  line "México" [24.8, 26.3, 27.9, 29.6, 31.5]
+  line "Argentina" [28.9, 29.9, 31.1, 32.9, 34.9]
+  line "Colombia" [26.5, 28.6, 30.4, 32.5, 34.8]
+  line "Perú" [25.2, 27.1, 28.5, 30.2, 32.0]
+                        </pre>
+                        <p class="chart-caption">Figura 2. La edad mediana crece rápidamente en toda la región; Brasil destaca por un ritmo de envejecimiento especialmente acelerado. Fuente: WPP 2024.</p>
+                    </div>
+
+                    <h2>Tendencias estructurales hacia 2030</h2>
+                    <p>La <strong>Comisión Económica para América Latina y el Caribe (CEPAL)</strong>, a través de su centro demográfico <strong>CELADE</strong>, ha subrayado que la región entra a una fase en la que los “vientos a favor” demográficos se debilitan.</p>
+
+                    <div class="table-scroll">
+                        <table class="report-table">
+                            caption>Tabla 4. Perfil demográfico hacia 2030 (variante media).</caption>
+                            <thead>
+                                <tr>
+                                    <th>Lugar</th>
+                                    <th>Población (M)</th>
+                                    <th>Crec. anual (%)</th>
+                                    <th>TFR</th>
+                                    <th>Edad mediana</th>
+                                    <th>% urbano</th>
+                                    <th>Migr. neta (&permil;)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>América Latina y el Caribe</td><td>687.7</td><td>0.53</td><td>1.74</td><td>33.6</td><td>79.6</td><td>-0.53</td></tr>
+                                <tr><td>Centroamérica</td><td>193.3</td><td>0.80</td><td>1.87</td><td>30.3</td><td>75.9</td><td>-0.74</td></tr>
+                                <tr><td>Caribe</td><td>45.3</td><td>0.25</td><td>1.90</td><td>34.0</td><td>83.1</td><td>-2.19</td></tr>
+                                <tr><td>México</td><td>136.9</td><td>0.67</td><td>1.79</td><td>31.5</td><td>77.9</td><td>-0.78</td></tr>
+                                <tr><td>Brasil</td><td>216.1</td><td>0.25</td><td>1.58</td><td>36.9</td><td>80.1</td><td>-0.68</td></tr>
+                                <tr><td>Argentina</td><td>46.6</td><td>0.30</td><td>1.51</td><td>34.9</td><td>86.6</td><td>0.02</td></tr>
+                                <tr><td>Colombia</td><td>55.7</td><td>0.72</td><td>1.58</td><td>34.8</td><td>82.9</td><td>1.52</td></tr>
+                                <tr><td>Perú</td><td>36.2</td><td>0.83</td><td>1.87</td><td>32.0</td><td>74.9</td><td>-0.12</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Impulsores y implicaciones de política pública</h2>
+                    <p>Hacia 2030 aparecen cinco frentes prioritarios:</p>
+                    <ul>
+                        <li><strong>Mercados laborales y productividad:</strong> Dependencia de productividad y participación laboral femenina.</li>
+                        <li><strong>Pensiones y sostenibilidad fiscal:</strong> Presión sobre sistemas contributivos por envejecimiento.</li>
+                        <li><strong>Salud y cuidados de larga duración:</strong> Carga de enfermedades crónicas y demanda de geriatría.</li>
+                        <li><strong>Educación:</strong> Foco en calidad ante la caída de nacimientos.</li>
+                        <li><strong>Planificación urbana:</strong> Vivienda, transporte y resiliencia climática.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
