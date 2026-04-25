@@ -75,6 +75,31 @@ body::before {
   margin: 0 auto 60px;
 }
 
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    margin-bottom: 24px;
+  }
+  .section-title {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+  .section {
+    padding: 60px 20px;
+  }
+  .site-footer {
+    padding: 40px 0 0 0;
+  }
+}
+
 /* Header & Nav */
 header {
   position: fixed;
@@ -1142,6 +1167,8 @@ footer+.section::after,
 .about-image-wrapper {
   border: 1px solid rgba(255, 255, 255, 0.06);
   min-height: 320px;
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 .about-image-wrapper img {
@@ -1461,6 +1488,10 @@ footer+.section::after,
 }
 
 @media (max-width: 768px) {
+  .about-layout {
+    gap: 24px;
+  }
+  
   .about-text p {
     font-size: 1rem;
   }
