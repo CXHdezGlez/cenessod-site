@@ -1398,6 +1398,29 @@ footer+.section::after,
   letter-spacing: 0.12em;
 }
 
+@media (max-width: 768px) {
+  .founder-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 24px;
+  }
+  
+  .founder-image-wrapper {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .founder-quote::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .founder-details {
+    align-items: center;
+  }
+}
+
 /* Pilares */
 .about-pillars-full {
   grid-column: 1 / -1;
