@@ -1538,7 +1538,7 @@ footer+.section::after,
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  /* Importante: No ponemos overflow hidden aquí para dejar salir la cabeza */
+  overflow: visible; /* Aseguramos que nada corte la cabeza */
 }
 
 /* El Halo Circular de fondo */
@@ -1550,23 +1550,30 @@ footer+.section::after,
   transform: translateX(-50%);
   width: 220px;
   height: 220px;
-  background: radial-gradient(circle at center, rgba(9, 117, 121, 0.15), transparent);
+  background: radial-gradient(circle at center, rgba(9, 117, 121, 0.1), transparent);
   border-radius: 50%;
-  border: 4px solid rgba(9, 117, 121, 0.4);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(38, 177, 158, 0.2);
+  border: 4px solid rgba(38, 177, 158, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   z-index: 0;
 }
 
 .founder-image-wrapper img {
-  width: 100%;
+  width: 115%; /* Ajuste fino del tamaño */
   height: auto;
   position: relative;
   z-index: 1;
-  transform: scale(1.2) translateY(-5px); /* Escalamos para que sobresalga */
+  transform: scale(1.15) translateY(-12px); /* Subimos la foto un poco más */
   transform-origin: bottom center;
-  /* Máscara para que la parte de abajo siga la curva del círculo pero la de arriba no se corte */
-  mask-image: radial-gradient(circle at 50% 65%, black 48%, transparent 50%);
-  -webkit-mask-image: radial-gradient(circle at 50% 65%, black 48%, transparent 50%);
+  display: block;
+  
+  /* Máscara mejorada: Circular abajo, abierta arriba */
+  /* Usamos un gradiente que es sólido arriba y circular abajo */
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 40%), 
+                      radial-gradient(circle at 50% 60%, black 50%, transparent 52%);
+  -webkit-mask-composite: source-over;
+  mask-image: linear-gradient(to bottom, black 0%, black 40%), 
+              radial-gradient(circle at 50% 60%, black 50%, transparent 52%);
+  mask-composite: add;
 }
 
 .founder-info {
