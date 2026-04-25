@@ -1534,39 +1534,17 @@ footer+.section::after,
   flex-shrink: 0;
   width: 220px;
   height: 220px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* El contenedor NO debe tener overflow hidden */
-}
-
-/* El Halo Circular (El borde visible) */
-.founder-image-wrapper::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
   border-radius: 50%;
-  border: 4px solid rgba(38, 177, 158, 0.4);
-  background: radial-gradient(circle at center, rgba(9, 117, 121, 0.1), transparent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  z-index: 0;
+  overflow: hidden;
+  border: 4px solid rgba(9, 117, 121, 0.3);
+  box-shadow: 0 0 30px rgba(9, 117, 121, 0.2);
 }
 
 .founder-image-wrapper img {
-  width: 130%; /* Escalamos la imagen para que sobrepase el halo */
-  height: auto;
-  position: relative;
-  z-index: 1;
-  /* Desplazamos un poco hacia arriba para que la cabeza salga del halo */
-  transform: translateY(-15px);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  
-  /* Máscara circular simple y robusta, pero más grande que el halo */
-  /* Esto permite que la cabeza "salga" del borde pero se mantenga redondeada abajo */
-  -webkit-mask-image: radial-gradient(circle at 50% 55%, black 68%, transparent 70%);
-  mask-image: radial-gradient(circle at 50% 55%, black 68%, transparent 70%);
 }
 
 .founder-info {
