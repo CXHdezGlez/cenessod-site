@@ -1532,18 +1532,41 @@ footer+.section::after,
 
 .founder-image-wrapper {
   flex-shrink: 0;
+  width: 240px;
+  height: 240px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* Importante: No ponemos overflow hidden aquí para dejar salir la cabeza */
+}
+
+/* El Halo Circular de fondo */
+.founder-image-wrapper::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 220px;
   height: 220px;
+  background: radial-gradient(circle at center, rgba(9, 117, 121, 0.15), transparent);
   border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid rgba(9, 117, 121, 0.3);
-  box-shadow: 0 0 30px rgba(9, 117, 121, 0.2);
+  border: 4px solid rgba(9, 117, 121, 0.4);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(38, 177, 158, 0.2);
+  z-index: 0;
 }
 
 .founder-image-wrapper img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  transform: scale(1.2) translateY(-5px); /* Escalamos para que sobresalga */
+  transform-origin: bottom center;
+  /* Máscara para que la parte de abajo siga la curva del círculo pero la de arriba no se corte */
+  mask-image: radial-gradient(circle at 50% 65%, black 48%, transparent 50%);
+  -webkit-mask-image: radial-gradient(circle at 50% 65%, black 48%, transparent 50%);
 }
 
 .founder-info {
