@@ -12,24 +12,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  const updateActiveNavLink = () => {
-    const scrollPosition = window.scrollY + 140;
+  // Intersection Observer for active navigation links
+  const navObserverOptions = {
+    root: null,
+    rootMargin: "-150px 0px -70% 0px", // Trigger when section is near top
+    threshold: 0
+  };
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute("id");
-
-      if (
-        scrollPosition >= sectionTop &&
-        scrollPosition < sectionTop + sectionHeight
-      ) {
-        navLinks.forEach((link) => link.classList.remove("active"));
-        const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-        if (activeLink) activeLink.classList.add("active");
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${sectionId}`) {
+            link.classList.add("active");
+          }
+        });
       }
     });
-  };
+  }, navObserverOptions);
+
+  sections.forEach((section) => navObserver.observe(section));
 
   // Fade Up Animation
   const fadeElements = document.querySelectorAll(".fade-up");
@@ -43,13 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { threshold: 0.15 });
   fadeElements.forEach((el) => fadeObserver.observe(el));
 
-  // Init scroll & events
+  // Init scroll & events (Passive listener for header)
   updateHeaderOnScroll();
-  updateActiveNavLink();
-  window.addEventListener("scroll", () => {
-    updateHeaderOnScroll();
-    updateActiveNavLink();
-  });
+  window.addEventListener("scroll", updateHeaderOnScroll, { passive: true });
 
   // Mobile Menu
   const menuToggle = document.getElementById("menuToggle");
@@ -106,8 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Dynamic Counters Animation ---
   const counters = document.querySelectorAll(".counter");
   const countersContainer = document.getElementById("countersContainer");
-  let hasAnimated = false;
-
+  
   function runCounters() {
     counters.forEach(counter => {
       counter.innerText = "0";
@@ -133,18 +132,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function handleCountersScroll() {
-    if (hasAnimated || !countersContainer || counters.length === 0) return;
-    const rect = countersContainer.getBoundingClientRect();
-    if (rect.top <= window.innerHeight - 50 && rect.bottom >= 0) {
-      hasAnimated = true;
-      runCounters();
-      window.removeEventListener("scroll", handleCountersScroll);
-    }
-  }
+  if (countersContainer && counters.length > 0) {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          runCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
 
-  window.addEventListener("scroll", handleCountersScroll);
-  setTimeout(handleCountersScroll, 100);
+    counterObserver.observe(countersContainer);
+  }
 
   // --- Analysis Report Modal Logic ---
   const reportModal = document.getElementById("reportModal");
