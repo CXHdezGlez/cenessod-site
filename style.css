@@ -1438,9 +1438,16 @@ footer+.section::after,
     height: 180px;
   }
   
+  .founder-quote {
+    padding-top: 28px;
+  }
+  
   .founder-quote::before {
     left: 50%;
     transform: translateX(-50%);
+    top: -24px;
+    font-size: 5rem;
+    color: rgba(9, 117, 121, 0.25);
   }
   
   .founder-details {
