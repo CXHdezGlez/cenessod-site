@@ -118,6 +118,34 @@ function initCenessodSite() {
       };
     });
 
+    const firmamentStars = Array.from({ length: 180 }, (_, index) => {
+      const x = Math.abs(seededUnit(index, 8));
+      const y = Math.abs(seededUnit(index, 9));
+      const rightBias = Math.min(1, Math.max(0.2, (x - 0.16) / 0.66));
+
+      return {
+        x,
+        y,
+        size: 0.38 + Math.abs(seededUnit(index, 10)) * 1.1,
+        phase: Math.abs(seededUnit(index, 11)) * Math.PI * 2,
+        blur: 0.7 + Math.abs(seededUnit(index, 12)) * 1.8,
+        alpha: (0.08 + Math.abs(seededUnit(index, 13)) * 0.22) * rightBias,
+      };
+    });
+
+    const trailDust = Array.from({ length: 118 }, (_, index) => {
+      const angle = Math.abs(seededUnit(index, 14)) * Math.PI * 2;
+      const radius = Math.pow(Math.abs(seededUnit(index, 15)), 0.58);
+
+      return {
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius,
+        size: 0.45 + Math.abs(seededUnit(index, 16)) * 1.15,
+        alpha: 0.18 + Math.abs(seededUnit(index, 17)) * 0.46,
+        phase: Math.abs(seededUnit(index, 18)) * Math.PI * 2,
+      };
+    });
+
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, rect.width);
@@ -234,9 +262,28 @@ function initCenessodSite() {
 
       ctx.globalCompositeOperation = "lighter";
 
+      firmamentStars.forEach((star) => {
+        const px = star.x * width;
+        const py = star.y * height;
+        const alpha = star.alpha * (0.82 + Math.sin(time * 0.00055 * ambientMotionScale + star.phase) * 0.18);
+        const radius = star.size * (5.4 + star.blur);
+
+        ctx.save();
+        ctx.filter = `blur(${star.blur}px)`;
+        const glow = ctx.createRadialGradient(px, py, 0, px, py, radius);
+        glow.addColorStop(0, `rgba(198, 255, 246, ${alpha * 0.42})`);
+        glow.addColorStop(0.36, `rgba(158, 230, 216, ${alpha * 0.16})`);
+        glow.addColorStop(1, "rgba(158, 230, 216, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+
       ambientParticles.forEach((particle) => {
-        const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 10 * ambientMotionScale * particle.depth;
-        const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 8 * ambientMotionScale * particle.depth;
+        const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 7 * ambientMotionScale * particle.depth;
+        const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 6 * ambientMotionScale * particle.depth;
         const pxBase = particle.x * width + baseDriftX;
         const pyBase = particle.y * height + baseDriftY;
         const pointerX = pointer.x * width;
@@ -246,19 +293,19 @@ function initCenessodSite() {
         const distance = Math.sqrt(dx * dx + dy * dy) || 1;
         const radius = width < 700 ? 230 : 440;
         const pull = Math.max(0, 1 - distance / radius) * pointer.strength;
-        const orbit = pull * 66 * particle.depth;
-        const attract = pull * 34 * particle.depth;
+        const orbit = pull * 42 * particle.depth;
+        const attract = pull * 24 * particle.depth;
         const tangentX = -dy / distance;
         const tangentY = dx / distance;
         const px = pxBase + tangentX * orbit - (dx / distance) * attract;
         const py = pyBase + tangentY * orbit - (dy / distance) * attract;
         const twinkle = 0.82 + Math.sin(time * 0.0015 * ambientMotionScale + particle.phase) * 0.18;
-        const alpha = Math.min(0.72, (0.12 + particle.depth * 0.14 + pull * 0.34) * particle.twinkle * twinkle);
+        const alpha = Math.min(0.62, (0.09 + particle.depth * 0.1 + pull * 0.26) * particle.twinkle * twinkle);
         const fieldBias = Math.min(1, Math.max(0.32, (pxBase / width - 0.18) / 0.58));
         const starAlpha = alpha * fieldBias;
         const starRadius = particle.size * (0.9 + pull * 0.75);
-        const haloRadius = starRadius * (4.4 + pull * 2.4);
-        const tailLength = pull * (5 + particle.depth * 7);
+        const haloRadius = starRadius * (3.6 + pull * 1.8);
+        const tailLength = pull * (2 + particle.depth * 3);
         const angle = particle.angle + pull * 1.9 + time * 0.00012 * ambientMotionScale * particle.depth;
 
         const starGlow = ctx.createRadialGradient(px, py, 0, px, py, haloRadius);
@@ -270,7 +317,7 @@ function initCenessodSite() {
         ctx.arc(px, py, haloRadius, 0, Math.PI * 2);
         ctx.fill();
 
-        if (pull > 0.08) {
+        if (pull > 0.18) {
           ctx.strokeStyle = `rgba(${particle.color}, ${starAlpha * 0.34})`;
           ctx.lineWidth = Math.max(0.35, starRadius * 0.48);
           ctx.beginPath();
@@ -284,8 +331,8 @@ function initCenessodSite() {
         ctx.arc(px, py, Math.max(0.55, starRadius), 0, Math.PI * 2);
         ctx.fill();
 
-        if (index % 17 === 0 && starAlpha > 0.24) {
-          const glint = starRadius * (2.8 + pull * 1.6);
+        if (index % 29 === 0 && starAlpha > 0.3) {
+          const glint = starRadius * (1.9 + pull);
           ctx.strokeStyle = `rgba(${particle.color}, ${starAlpha * 0.28})`;
           ctx.lineWidth = 0.45;
           ctx.beginPath();
@@ -302,7 +349,7 @@ function initCenessodSite() {
 
       if (trail.length > 1) {
         ctx.save();
-        ctx.filter = `blur(${width < 700 ? 12 : 18}px)`;
+        ctx.filter = `blur(${width < 700 ? 15 : 22}px)`;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.beginPath();
@@ -312,8 +359,8 @@ function initCenessodSite() {
           if (index === 0) ctx.moveTo(px, py);
           else ctx.lineTo(px, py);
         });
-        ctx.strokeStyle = "rgba(38, 177, 158, 0.24)";
-        ctx.lineWidth = width < 700 ? 30 : 44;
+        ctx.strokeStyle = "rgba(38, 177, 158, 0.16)";
+        ctx.lineWidth = width < 700 ? 44 : 62;
         ctx.stroke();
         ctx.restore();
 
@@ -328,24 +375,24 @@ function initCenessodSite() {
           if (index === 0) ctx.moveTo(px, py);
           else ctx.lineTo(px, py);
         });
-        ctx.strokeStyle = "rgba(198, 255, 246, 0.16)";
-        ctx.lineWidth = width < 700 ? 8 : 12;
+        ctx.strokeStyle = "rgba(198, 255, 246, 0.12)";
+        ctx.lineWidth = width < 700 ? 10 : 16;
         ctx.stroke();
         ctx.restore();
       }
 
       trail.forEach((point, index) => {
         const falloff = 1 - index / Math.max(1, trail.length);
-        const radius = falloff * 38 + 12;
+        const radius = falloff * (width < 700 ? 56 : 76) + 16;
         const px = point.x * width;
         const py = point.y * height;
-        const alpha = point.life * (0.14 + falloff * 0.1);
+        const alpha = point.life * (0.09 + falloff * 0.11);
 
         ctx.save();
-        ctx.filter = `blur(${width < 700 ? 5 : 8}px)`;
+        ctx.filter = `blur(${width < 700 ? 8 : 12}px)`;
         const halo = ctx.createRadialGradient(px, py, 0, px, py, radius);
-        halo.addColorStop(0, `rgba(198, 255, 246, ${alpha})`);
-        halo.addColorStop(0.36, `rgba(38, 177, 158, ${alpha * 0.46})`);
+        halo.addColorStop(0, `rgba(198, 255, 246, ${alpha * 0.82})`);
+        halo.addColorStop(0.34, `rgba(38, 177, 158, ${alpha * 0.48})`);
         halo.addColorStop(1, "rgba(38, 177, 158, 0)");
         ctx.fillStyle = halo;
         ctx.beginPath();
@@ -353,10 +400,25 @@ function initCenessodSite() {
         ctx.fill();
         ctx.restore();
 
+        if (index < 8) {
+          const dustScale = radius * 0.58;
+          trailDust.forEach((dust, dustIndex) => {
+            if (dustIndex % 2 !== index % 2) return;
+            const dustX = px + dust.x * dustScale;
+            const dustY = py + dust.y * dustScale * 0.82;
+            const dustAlpha = point.life * falloff * dust.alpha * (0.46 + Math.sin(time * 0.0012 + dust.phase) * 0.12);
+
+            ctx.fillStyle = `rgba(198, 255, 246, ${dustAlpha})`;
+            ctx.beginPath();
+            ctx.arc(dustX, dustY, Math.max(0.45, dust.size * falloff), 0, Math.PI * 2);
+            ctx.fill();
+          });
+        }
+
         if (index === 0) {
-          ctx.fillStyle = `rgba(198, 255, 246, ${point.life * 0.62})`;
+          ctx.fillStyle = `rgba(198, 255, 246, ${point.life * 0.5})`;
           ctx.beginPath();
-          ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+          ctx.arc(px, py, 1.8, 0, Math.PI * 2);
           ctx.fill();
         }
 
