@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CENESSOD | Inteligencia Demográfica y Social</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Mermaid.js for charts -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'dark',
-            securityLevel: 'loose',
-        });
-    </script>
+    <link rel="stylesheet" href="style.css?v=hero-antigravity-20260605">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
     <!-- Fonts: Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,9 +16,6 @@
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Spline Viewer Script -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.30/build/spline-viewer.js"></script>
 
     <meta name="description"
         content="CENESSOD — Inteligencia demográfica y social para decisiones estratégicas basadas en datos." />
@@ -43,18 +29,19 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <meta name="apple-mobile-web-app-title" content="CENESSOD" />
     <link rel="manifest" href="/site.webmanifest" />
 
 </head>
 
-<body>
+<body id="top">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
     <!-- Navigation -->
     <header>
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#top" class="logo" aria-label="CENESSOD - ir al inicio">
                 <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
-                    class="logo-inverted">
+                    class="logo-inverted" width="1141" height="487">
             </a>
 
             <nav>
@@ -75,8 +62,8 @@
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                         <div class="lang-dropdown">
-                            <a href="#" class="lang-option active" data-lang="es">Español</a>
-                            <a href="#" class="lang-option" data-lang="en">English</a>
+                            <button type="button" class="lang-option active" data-lang="es">Español</button>
+                            <button type="button" class="lang-option" data-lang="en">English</button>
                         </div>
                     </div>
                 </div>
@@ -110,10 +97,29 @@
         </div>
     </header>
 
-    <!-- Hero Section: Driven by Spline -->
+    <main id="main-content">
+    <!-- Hero Section -->
     <section class="hero">
-        <spline-viewer url="https://prod.spline.design/MDtR6qQ0uVWA1jtM/scene.splinecode"
-            class="spline-scene"></spline-viewer>
+        <canvas class="hero-data-canvas" id="heroDataCanvas" aria-hidden="true"></canvas>
+        <div class="hero-cursor-beacon" aria-hidden="true">
+            <span></span>
+        </div>
+        <div class="hero-interactive-field" aria-hidden="true">
+            <div class="hero-orbit hero-orbit-one"></div>
+            <div class="hero-orbit hero-orbit-two"></div>
+            <div class="hero-orbit hero-orbit-three"></div>
+            <div class="hero-data-core">
+                <span class="hero-core-pulse"></span>
+                <span class="hero-core-label">DATA</span>
+            </div>
+            <span class="hero-node hero-node-a"></span>
+            <span class="hero-node hero-node-b"></span>
+            <span class="hero-node hero-node-c"></span>
+            <span class="hero-node hero-node-d"></span>
+            <span class="hero-chip hero-chip-a">DEMOGRAFIA</span>
+            <span class="hero-chip hero-chip-b">TERRITORIO</span>
+            <span class="hero-chip hero-chip-c">SOCIAL</span>
+        </div>
         <div class="hero-content">
             <h1>
                 <span data-es="Impulsando el cambio social" data-en="Driving social change">Impulsando el cambio
@@ -370,7 +376,7 @@
     <section id="capabilities" class="section section-dark capabilities-section">
         <div class="container">
             <div class="capabilities-header" data-aos="fade-up">
-                <span class="section-kicker" data-es="Capacidades institucionales" data-en="Institutional capabilities">
+                <span class="section-kicker section-kicker-line" data-es="Capacidades institucionales" data-en="Institutional capabilities">
                     Capacidades institucionales
                 </span>
 
@@ -520,7 +526,7 @@
                 </div>
 
                 <div class="content-text about-text">
-                    <span class="section-kicker" data-es="Quiénes somos" data-en="Who we are">Quiénes somos</span>
+                    <span class="section-kicker section-kicker-dot" data-es="Quiénes somos" data-en="Who we are">Quiénes somos</span>
 
                     <h2 class="section-title text-left"
                         data-es="Rigor técnico, comprensión social y capacidad analítica para decisiones complejas"
@@ -570,7 +576,8 @@
 
                 <div class="founder-section fade-up">
                     <div class="founder-image-wrapper">
-                        <img src="media/zoom_ajustada_600x600.jpg?v=1" alt="Carlos Hernández">
+                        <img src="media/zoom_ajustada_600x600.jpg?v=1" alt="Carlos Hernández" width="600"
+                            height="600" loading="lazy" decoding="async">
                     </div>
                     <div class="founder-info">
                         <h3 class="founder-quote" data-es="&quot;La información solo tiene valor cuando impulsa decisiones. Nosotros la convertimos en estrategia.&quot;" data-en="&quot;Information only has value when it drives decisions. We turn it into strategy.&quot;">
@@ -600,7 +607,7 @@
     <section id="analysis" class="section section-dark analysis-section">
         <div class="container">
             <div class="analysis-section-header" data-aos="fade-up">
-                <span class="section-kicker" data-es="Perspectiva editorial" data-en="Editorial perspective">
+                <span class="section-kicker section-kicker-minimal" data-es="Perspectiva editorial" data-en="Editorial perspective">
                     Perspectiva editorial
                 </span>
 
@@ -648,7 +655,8 @@
                         El aumento sostenido de precios está reconfigurando percepciones económicas, prioridades
                         ciudadanas y expectativas sobre la gestión gubernamental.
                     </p>
-                    <a href="#" class="analysis-link" data-es="Leer análisis" data-en="Read analysis">Leer análisis</a>
+                    <a href="#contact" class="analysis-link" data-es="Solicitar análisis"
+                        data-en="Request analysis">Solicitar análisis</a>
                 </article>
 
                 <article class="analysis-card fade-up">
@@ -663,7 +671,8 @@
                         La medición rigurosa de resultados permite identificar efectos reales, ajustar intervenciones y
                         fortalecer la asignación estratégica de recursos.
                     </p>
-                    <a href="#" class="analysis-link" data-es="Leer análisis" data-en="Read analysis">Leer análisis</a>
+                    <a href="#contact" class="analysis-link" data-es="Solicitar análisis"
+                        data-en="Request analysis">Solicitar análisis</a>
                 </article>
             </div>
         </div>
@@ -677,7 +686,9 @@
                 <iframe src="https://storage.googleapis.com/maps-solutions-ue6mmrlzl2/locator-plus/ldia/locator-plus.html"
                     width="100%" height="100%"
                     style="border:0;"
-                    loading="lazy">
+                    title="Mapa de ubicación de CENESSOD"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
         </div>
@@ -701,7 +712,7 @@
                                 <line x1="100" y1="100" x2="150" y2="50" stroke="var(--color-accent)" stroke-width="0.5" opacity="0.3" />
                             </svg>
                         </div>
-                        <h3 data-es="Llevemos tus datos al siguiente nivel" data-en="Let's take your data to the next level">Llevemos tus datos al siguiente nivel</h3>
+                        <p class="contact-visual-heading" data-es="Llevemos tus datos al siguiente nivel" data-en="Let's take your data to the next level">Llevemos tus datos al siguiente nivel</p>
                         <p data-es="Estamos listos para analizar tu entorno y diseñar estrategias basadas en evidencia real." data-en="We are ready to analyze your environment and design strategies based on real evidence.">Estamos listos para analizar tu entorno y diseñar estrategias basadas en evidencia real.</p>
                         
                         <div class="contact-info-minimal">
@@ -728,22 +739,22 @@
 
                         <div class="form-row">
                             <div class="form-group">
-                                <input type="text" name="name" placeholder="Nombre" aria-label="Nombre completo" required>
+                                <input type="text" name="name" placeholder="Nombre" data-placeholder-es="Nombre" data-placeholder-en="Name" aria-label="Nombre completo" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="Correo electrónico" aria-label="Correo electrónico" required>
+                                <input type="email" name="email" placeholder="Correo electrónico" data-placeholder-es="Correo electr&oacute;nico" data-placeholder-en="Email" aria-label="Correo electrónico" required>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="subject" placeholder="Asunto" aria-label="Asunto del mensaje" required>
+                            <input type="text" name="subject" placeholder="Asunto" data-placeholder-es="Asunto" data-placeholder-en="Subject" aria-label="Asunto del mensaje" required>
                         </div>
 
                         <div class="form-group">
-                            <textarea name="message" placeholder="Escribe tu mensaje" aria-label="Contenido del mensaje" required></textarea>
+                            <textarea name="message" placeholder="Escribe tu mensaje" data-placeholder-es="Escribe tu mensaje" data-placeholder-en="Write your message" aria-label="Contenido del mensaje" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primary btn-block" aria-label="Enviar mensaje de contacto">Enviar mensaje</button>
+                        <button type="submit" class="btn-primary btn-block" aria-label="Enviar mensaje de contacto" data-es="Enviar mensaje" data-en="Send message">Enviar mensaje</button>
                     </form>
 
                     <p id="form-success" class="form-success-message" style="display:none;">
@@ -754,14 +765,18 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container footer-grid">
 
             <!-- Columna 1 -->
             <div class="footer-brand">
-                <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo">
-                <p>
+                <img src="media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD Logo"
+                    width="1141" height="487" loading="lazy" decoding="async">
+                <p data-es="Centro de Estudios Sociales y Demogr&aacute;ficos. Inteligencia demogr&aacute;fica, investigaci&oacute;n social y an&aacute;lisis estrat&eacute;gico basado en datos."
+                    data-en="Center for Social and Demographic Studies. Demographic intelligence, social research, and strategic data-based analysis.">
                     Centro de Estudios Sociales y Demográficos.
                     Inteligencia demográfica, investigación social
                     y análisis estratégico basado en datos.
@@ -770,7 +785,7 @@
 
             <!-- Columna 2 -->
             <div class="footer-contact">
-                <h4>Contacto</h4>
+                <h3 data-es="Contacto" data-en="Contact">Contacto</h3>
 
                 <div class="footer-item">
                     <i class="fa-solid fa-phone"></i>
@@ -794,20 +809,20 @@
 
             <!-- Columna 3 -->
             <div class="footer-menu">
-                <h4>Menú</h4>
+                <h3 data-es="Men&uacute;" data-en="Menu">Menú</h3>
                 <ul>
-                    <li><a href="#vision">Visión</a></li>
-                    <li><a href="#services">Servicios</a></li>
-                    <li><a href="#analysis">Análisis</a></li>
-                    <li><a href="#about">Nosotros</a></li>
-                    <li><a href="#contact">Contacto</a></li>
+                    <li><a href="#vision" data-es="Visi&oacute;n" data-en="Vision">Visión</a></li>
+                    <li><a href="#services" data-es="Servicios" data-en="Services">Servicios</a></li>
+                    <li><a href="#analysis" data-es="An&aacute;lisis" data-en="Insights">Análisis</a></li>
+                    <li><a href="#about" data-es="Nosotros" data-en="About Us">Nosotros</a></li>
+                    <li><a href="#contact" data-es="Contacto" data-en="Contact">Contacto</a></li>
                 </ul>
             </div>
 
         </div>
 
         <div class="footer-bottom">
-            © 2025 CENESSOD
+            © 2026 CENESSOD
         </div>
     </footer>
     <!-- Analysis Report Modal -->
@@ -1081,72 +1096,11 @@ flowchart LR
             translatePage(initialLang);
         });
     </script>
-    <!-- Scroll Animation Script -->
-    <script>
-        const fadeElements = document.querySelectorAll('.fade-up');
-
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-
-        fadeElements.forEach((el) => fadeObserver.observe(el));
-    </script>
-    <script src="script.js"></script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-    <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script src="script.js?v=hero-antigravity-20260605"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"
+        onload="window.AOS && window.AOS.init({ duration: 1000, once: true })"></script>
 
     <div id="particles"></div>
-
-    <script>
-        tsParticles.load("particles", {
-            background: {
-                color: "transparent"
-            },
-            particles: {
-                number: { value: 40 },
-                color: { value: "#00c6c6" },
-                links: {
-                    enable: true,
-                    distance: 200,
-                    color: "#00c6c6",
-                    opacity: 0.3,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 1
-                },
-                size: { value: 2 }
-            }
-        });
-    </script>
-
-    <script>
-        window.addEventListener("scroll", function () {
-            const header = document.querySelector("header");
-
-            if (window.scrollY > 50) {
-                header.classList.add("scrolled");
-            } else {
-                header.classList.remove("scrolled");
-            }
-        });
-    </script>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -1158,10 +1112,6 @@ flowchart LR
         }
     </script>
 
-    <!-- Google Maps Store Locator Configuration -->
-            }
-        });
-    </script>
 </body>
 
 </html>
