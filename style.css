@@ -799,13 +799,28 @@ html {
   .hero-interactive-field,
   .hero-data-core,
   .hero-cursor-beacon {
-    transition: none;
+    transition-duration: 0.16s;
   }
 
-  .hero-orbit,
-  .hero-interactive-field::after,
   .hero-core-pulse {
-    animation: none;
+    animation-duration: 4.8s;
+  }
+
+  .hero-orbit-one {
+    animation-duration: calc(36s / var(--hero-orbit-speed));
+  }
+
+  .hero-orbit-two {
+    animation-duration: calc(44s / var(--hero-orbit-speed));
+  }
+
+  .hero-orbit-three {
+    animation-duration: calc(32s / var(--hero-orbit-speed));
+  }
+
+  .hero-interactive-field::after {
+    animation-duration: 30s;
+    opacity: 0.58;
   }
 }
 
