@@ -461,7 +461,7 @@ html {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 3;
   display: block;
   opacity: 1;
   pointer-events: none;
@@ -471,7 +471,7 @@ html {
   position: absolute;
   left: var(--hero-cursor-x);
   top: var(--hero-cursor-y);
-  z-index: 3;
+  z-index: 5;
   width: 220px;
   aspect-ratio: 1;
   border-radius: 50%;
