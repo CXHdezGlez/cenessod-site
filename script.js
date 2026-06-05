@@ -101,19 +101,20 @@ function initCenessodSite() {
       return (Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453) % 1;
     }
 
-    const ambientParticles = Array.from({ length: 230 }, (_, index) => {
+    const ambientParticles = Array.from({ length: 260 }, (_, index) => {
       const x = Math.abs(seededUnit(index, 1));
       const y = Math.abs(seededUnit(index, 2));
-      const hueBand = index % 5;
+      const hueBand = index % 9;
 
       return {
         x,
         y,
-        size: 0.9 + Math.abs(seededUnit(index, 3)) * 2.8,
+        size: 0.45 + Math.abs(seededUnit(index, 3)) * 1.35,
         angle: Math.abs(seededUnit(index, 4)) * Math.PI * 2,
         phase: Math.abs(seededUnit(index, 5)) * Math.PI * 2,
         depth: 0.32 + Math.abs(seededUnit(index, 6)) * 0.9,
-        color: hueBand === 0 ? "198, 255, 246" : hueBand === 1 ? "38, 177, 158" : hueBand === 2 ? "98, 151, 255" : hueBand === 3 ? "216, 116, 154" : "255, 255, 255",
+        twinkle: 0.55 + Math.abs(seededUnit(index, 7)) * 0.45,
+        color: hueBand === 0 ? "198, 255, 246" : hueBand <= 2 ? "158, 230, 216" : "255, 255, 255",
       };
     });
 
@@ -172,7 +173,7 @@ function initCenessodSite() {
       pointer.strength = 1;
       canvas.dataset.interaction = "active";
       trail.unshift({ x: nx, y: ny, life: 1 });
-      if (trail.length > 14) trail.pop();
+      if (trail.length > 20) trail.pop();
       setHeroPointerState(nx, ny);
     }
 
@@ -234,8 +235,8 @@ function initCenessodSite() {
       ctx.globalCompositeOperation = "lighter";
 
       ambientParticles.forEach((particle) => {
-        const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 18 * ambientMotionScale * particle.depth;
-        const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 14 * ambientMotionScale * particle.depth;
+        const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 10 * ambientMotionScale * particle.depth;
+        const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 8 * ambientMotionScale * particle.depth;
         const pxBase = particle.x * width + baseDriftX;
         const pyBase = particle.y * height + baseDriftY;
         const pointerX = pointer.x * width;
@@ -251,35 +252,115 @@ function initCenessodSite() {
         const tangentY = dx / distance;
         const px = pxBase + tangentX * orbit - (dx / distance) * attract;
         const py = pyBase + tangentY * orbit - (dy / distance) * attract;
-        const alpha = 0.18 + particle.depth * 0.18 + pull * 0.46;
-        const dashLength = 4 + particle.size * 3.6 + pull * 22;
+        const twinkle = 0.82 + Math.sin(time * 0.0015 * ambientMotionScale + particle.phase) * 0.18;
+        const alpha = Math.min(0.72, (0.12 + particle.depth * 0.14 + pull * 0.34) * particle.twinkle * twinkle);
+        const fieldBias = Math.min(1, Math.max(0.32, (pxBase / width - 0.18) / 0.58));
+        const starAlpha = alpha * fieldBias;
+        const starRadius = particle.size * (0.9 + pull * 0.75);
+        const haloRadius = starRadius * (4.4 + pull * 2.4);
+        const tailLength = pull * (5 + particle.depth * 7);
         const angle = particle.angle + pull * 1.9 + time * 0.00012 * ambientMotionScale * particle.depth;
 
-        ctx.strokeStyle = `rgba(${particle.color}, ${alpha})`;
-        ctx.lineWidth = Math.max(0.8, particle.size * (0.55 + pull * 0.7));
+        const starGlow = ctx.createRadialGradient(px, py, 0, px, py, haloRadius);
+        starGlow.addColorStop(0, `rgba(${particle.color}, ${starAlpha * 0.52})`);
+        starGlow.addColorStop(0.34, `rgba(${particle.color}, ${starAlpha * 0.18})`);
+        starGlow.addColorStop(1, `rgba(${particle.color}, 0)`);
+        ctx.fillStyle = starGlow;
         ctx.beginPath();
-        ctx.moveTo(px - Math.cos(angle) * dashLength, py - Math.sin(angle) * dashLength);
-        ctx.lineTo(px + Math.cos(angle) * dashLength, py + Math.sin(angle) * dashLength);
-        ctx.stroke();
+        ctx.arc(px, py, haloRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (pull > 0.08) {
+          ctx.strokeStyle = `rgba(${particle.color}, ${starAlpha * 0.34})`;
+          ctx.lineWidth = Math.max(0.35, starRadius * 0.48);
+          ctx.beginPath();
+          ctx.moveTo(px - Math.cos(angle) * tailLength, py - Math.sin(angle) * tailLength);
+          ctx.lineTo(px + Math.cos(angle) * tailLength * 0.28, py + Math.sin(angle) * tailLength * 0.28);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = `rgba(${particle.color}, ${Math.min(0.9, starAlpha + 0.18)})`;
+        ctx.beginPath();
+        ctx.arc(px, py, Math.max(0.55, starRadius), 0, Math.PI * 2);
+        ctx.fill();
+
+        if (index % 17 === 0 && starAlpha > 0.24) {
+          const glint = starRadius * (2.8 + pull * 1.6);
+          ctx.strokeStyle = `rgba(${particle.color}, ${starAlpha * 0.28})`;
+          ctx.lineWidth = 0.45;
+          ctx.beginPath();
+          ctx.moveTo(px - glint, py);
+          ctx.lineTo(px + glint, py);
+          ctx.moveTo(px, py - glint);
+          ctx.lineTo(px, py + glint);
+          ctx.stroke();
+        }
       });
 
       drawWave(time, 0.18, 0.12);
       drawWave(time, 0.25, 0.08);
 
+      if (trail.length > 1) {
+        ctx.save();
+        ctx.filter = `blur(${width < 700 ? 12 : 18}px)`;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        trail.forEach((point, index) => {
+          const px = point.x * width;
+          const py = point.y * height;
+          if (index === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        });
+        ctx.strokeStyle = "rgba(38, 177, 158, 0.24)";
+        ctx.lineWidth = width < 700 ? 30 : 44;
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.save();
+        ctx.filter = `blur(${width < 700 ? 4 : 7}px)`;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        trail.forEach((point, index) => {
+          const px = point.x * width;
+          const py = point.y * height;
+          if (index === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        });
+        ctx.strokeStyle = "rgba(198, 255, 246, 0.16)";
+        ctx.lineWidth = width < 700 ? 8 : 12;
+        ctx.stroke();
+        ctx.restore();
+      }
+
       trail.forEach((point, index) => {
-        const radius = (1 - index / Math.max(1, trail.length)) * 56 + 16;
+        const falloff = 1 - index / Math.max(1, trail.length);
+        const radius = falloff * 38 + 12;
         const px = point.x * width;
         const py = point.y * height;
-        const alpha = point.life * 0.22;
+        const alpha = point.life * (0.14 + falloff * 0.1);
+
+        ctx.save();
+        ctx.filter = `blur(${width < 700 ? 5 : 8}px)`;
         const halo = ctx.createRadialGradient(px, py, 0, px, py, radius);
         halo.addColorStop(0, `rgba(198, 255, 246, ${alpha})`);
-        halo.addColorStop(0.28, `rgba(38, 177, 158, ${alpha * 0.62})`);
+        halo.addColorStop(0.36, `rgba(38, 177, 158, ${alpha * 0.46})`);
         halo.addColorStop(1, "rgba(38, 177, 158, 0)");
         ctx.fillStyle = halo;
         ctx.beginPath();
         ctx.arc(px, py, radius, 0, Math.PI * 2);
         ctx.fill();
-        point.life *= 0.86;
+        ctx.restore();
+
+        if (index === 0) {
+          ctx.fillStyle = `rgba(198, 255, 246, ${point.life * 0.62})`;
+          ctx.beginPath();
+          ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        point.life *= 0.965;
       });
 
       for (let i = 0; i < rendered.length; i += 1) {
