@@ -54,6 +54,9 @@ function initCenessodSite() {
     if (!ctx) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ambientMotionScale = reduceMotion ? 0.42 : 1;
+    const idleStrengthBase = reduceMotion ? 0.22 : 0.34;
+    const idleStrengthPulse = reduceMotion ? 0.035 : 0.06;
     const pointer = { x: 0.78, y: 0.46, active: false, strength: 0.38 };
     let width = 0;
     let height = 0;
@@ -211,11 +214,11 @@ function initCenessodSite() {
       if (pointer.active) {
         pointer.strength = Math.max(pointer.strength * 0.94, 0.18);
       } else {
-        pointer.strength = reduceMotion ? 0 : 0.34 + Math.sin(time * 0.0011) * 0.06;
+        pointer.strength = idleStrengthBase + Math.sin(time * 0.0011 * ambientMotionScale) * idleStrengthPulse;
       }
 
       const rendered = nodes.map((node) => {
-        const drift = reduceMotion ? 0 : Math.sin(time * 0.001 + node.phase) * node.orbit;
+        const drift = Math.sin(time * 0.001 * ambientMotionScale + node.phase) * node.orbit * ambientMotionScale;
         const dx = node.x - pointer.x;
         const dy = node.y - pointer.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -223,7 +226,7 @@ function initCenessodSite() {
 
         return {
           x: (node.x + drift + dx * influence * 0.34) * width,
-          y: (node.y + Math.cos(time * 0.0008 + node.phase) * node.orbit + dy * influence * 0.34) * height,
+          y: (node.y + Math.cos(time * 0.0008 * ambientMotionScale + node.phase) * node.orbit * ambientMotionScale + dy * influence * 0.34) * height,
           size: node.size + influence * 14,
         };
       });
@@ -231,8 +234,8 @@ function initCenessodSite() {
       ctx.globalCompositeOperation = "lighter";
 
       ambientParticles.forEach((particle) => {
-        const baseDriftX = reduceMotion ? 0 : Math.sin(time * 0.00018 * particle.depth + particle.phase) * 18 * particle.depth;
-        const baseDriftY = reduceMotion ? 0 : Math.cos(time * 0.00014 * particle.depth + particle.phase) * 14 * particle.depth;
+        const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 18 * ambientMotionScale * particle.depth;
+        const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 14 * ambientMotionScale * particle.depth;
         const pxBase = particle.x * width + baseDriftX;
         const pyBase = particle.y * height + baseDriftY;
         const pointerX = pointer.x * width;
@@ -250,7 +253,7 @@ function initCenessodSite() {
         const py = pyBase + tangentY * orbit - (dy / distance) * attract;
         const alpha = 0.18 + particle.depth * 0.18 + pull * 0.46;
         const dashLength = 4 + particle.size * 3.6 + pull * 22;
-        const angle = particle.angle + pull * 1.9 + time * 0.00012 * particle.depth;
+        const angle = particle.angle + pull * 1.9 + time * 0.00012 * ambientMotionScale * particle.depth;
 
         ctx.strokeStyle = `rgba(${particle.color}, ${alpha})`;
         ctx.lineWidth = Math.max(0.8, particle.size * (0.55 + pull * 0.7));
@@ -343,14 +346,13 @@ function initCenessodSite() {
 
       ctx.globalCompositeOperation = "source-over";
 
-      if (!reduceMotion) {
-        animationFrame = window.requestAnimationFrame(draw);
-      }
+      animationFrame = window.requestAnimationFrame(draw);
     }
 
     resizeCanvas();
     canvas.dataset.ready = "true";
     canvas.dataset.interaction = "idle";
+    canvas.dataset.motion = reduceMotion ? "soft" : "full";
     draw();
 
     if ("ResizeObserver" in window) {
