@@ -281,7 +281,7 @@ function initCenessodSite() {
         ctx.restore();
       });
 
-      ambientParticles.forEach((particle) => {
+      ambientParticles.forEach((particle, index) => {
         const baseDriftX = Math.sin(time * 0.00018 * ambientMotionScale * particle.depth + particle.phase) * 7 * ambientMotionScale * particle.depth;
         const baseDriftY = Math.cos(time * 0.00014 * ambientMotionScale * particle.depth + particle.phase) * 6 * ambientMotionScale * particle.depth;
         const pxBase = particle.x * width + baseDriftX;
@@ -615,13 +615,24 @@ function initCenessodSite() {
   // --- Dynamic Counters Animation ---
   const counters = document.querySelectorAll(".counter");
   const countersContainer = document.getElementById("countersContainer");
-  
+  let countersHaveRun = false;
+
   function runCounters() {
+    if (countersHaveRun) return;
+    countersHaveRun = true;
+
     counters.forEach(counter => {
-      counter.innerText = "0";
       const targetStr = counter.getAttribute("data-target");
       if (!targetStr) return;
       const target = parseInt(targetStr, 10);
+      const current = parseInt(counter.textContent, 10);
+
+      if (Number.isFinite(current) && current >= target) {
+        counter.innerText = target;
+        return;
+      }
+
+      counter.innerText = "0";
       const duration = 2000;
       let start = null;
 
@@ -641,17 +652,42 @@ function initCenessodSite() {
     });
   }
 
-  if (countersContainer && counters.length > 0) {
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          runCounters();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
+  function areCountersInView() {
+    if (!countersContainer) return false;
 
-    counterObserver.observe(countersContainer);
+    const rect = countersContainer.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  }
+
+  function runCountersWhenVisible() {
+    if (areCountersInView()) {
+      countersContainer.classList.add("visible");
+      runCounters();
+      window.removeEventListener("scroll", runCountersWhenVisible);
+      window.removeEventListener("resize", runCountersWhenVisible);
+    }
+  }
+
+  if (countersContainer && counters.length > 0) {
+    if ("IntersectionObserver" in window) {
+      const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            runCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.01 });
+
+      counterObserver.observe(countersContainer);
+    } else {
+      window.addEventListener("load", runCounters, { once: true });
+    }
+
+    window.addEventListener("pageshow", runCountersWhenVisible, { once: true });
+    window.addEventListener("scroll", runCountersWhenVisible, { passive: true });
+    window.addEventListener("resize", runCountersWhenVisible, { passive: true });
   }
 
   // --- Analysis Report Modal Logic ---
