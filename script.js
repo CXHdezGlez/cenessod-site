@@ -623,7 +623,9 @@ function initCenessodSite() {
 
   function runCounters() {
     if (countersHaveRun) return;
+    if (countersContainer && countersContainer.dataset.counterAnimated === "true") return;
     countersHaveRun = true;
+    if (countersContainer) countersContainer.dataset.counterAnimated = "true";
 
     counters.forEach(counter => {
       const targetStr = counter.getAttribute("data-target");
@@ -632,21 +634,17 @@ function initCenessodSite() {
 
       counter.innerText = "0";
       const duration = 2000;
-      let start = null;
-
-      function step(timestamp) {
-        if (!start) start = timestamp;
-        const progress = Math.min((timestamp - start) / duration, 1);
+      const start = Date.now();
+      const timer = window.setInterval(() => {
+        const progress = Math.min((Date.now() - start) / duration, 1);
         const easeOut = progress * (2 - progress);
         counter.innerText = Math.floor(easeOut * target);
 
-        if (progress < 1) {
-          window.requestAnimationFrame(step);
-        } else {
+        if (progress >= 1) {
           counter.innerText = target;
+          window.clearInterval(timer);
         }
-      }
-      window.requestAnimationFrame(step);
+      }, 16);
     });
   }
 
@@ -799,8 +797,67 @@ function initCenessodSite() {
   });
 }
 
+function initMetricsCounterFallback() {
+  const counters = document.querySelectorAll(".counter");
+  const countersContainer = document.getElementById("countersContainer");
+  if (!countersContainer || counters.length === 0) return;
+
+  let fallbackTimer = 0;
+
+  function countersHaveBeenReached() {
+    const rect = countersContainer.getBoundingClientRect();
+    return countersContainer.classList.contains("visible") || rect.top < window.innerHeight * 0.9;
+  }
+
+  function animateCounters() {
+    if (countersContainer.dataset.counterAnimated === "true") return;
+    countersContainer.dataset.counterAnimated = "true";
+    countersContainer.classList.add("visible");
+
+    counters.forEach((counter) => {
+      const target = parseInt(counter.getAttribute("data-target") || "0", 10);
+      const duration = 2000;
+      const start = Date.now();
+
+      counter.innerText = "0";
+      const timer = window.setInterval(() => {
+        const progress = Math.min((Date.now() - start) / duration, 1);
+        const easeOut = progress * (2 - progress);
+        counter.innerText = Math.floor(easeOut * target);
+
+        if (progress >= 1) {
+          counter.innerText = target;
+          window.clearInterval(timer);
+        }
+      }, 16);
+    });
+  }
+
+  function checkCounters() {
+    if (countersHaveBeenReached()) {
+      animateCounters();
+      window.removeEventListener("scroll", checkCounters);
+      window.removeEventListener("resize", checkCounters);
+      window.clearInterval(fallbackTimer);
+    }
+  }
+
+  window.addEventListener("scroll", checkCounters, { passive: true });
+  window.addEventListener("resize", checkCounters, { passive: true });
+  fallbackTimer = window.setInterval(checkCounters, 150);
+  window.requestAnimationFrame(checkCounters);
+}
+
+function bootCenessodSite() {
+  try {
+    initCenessodSite();
+  } finally {
+    initMetricsCounterFallback();
+  }
+}
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initCenessodSite, { once: true });
+  document.addEventListener("DOMContentLoaded", bootCenessodSite, { once: true });
 } else {
-  initCenessodSite();
+  bootCenessodSite();
 }
