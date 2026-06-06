@@ -619,6 +619,7 @@ function initCenessodSite() {
   const counters = document.querySelectorAll(".counter");
   const countersContainer = document.getElementById("countersContainer");
   let countersHaveRun = false;
+  let counterVisibilityTimer = 0;
 
   function runCounters() {
     if (countersHaveRun) return;
@@ -662,6 +663,7 @@ function initCenessodSite() {
       runCounters();
       window.removeEventListener("scroll", runCountersWhenVisible);
       window.removeEventListener("resize", runCountersWhenVisible);
+      window.clearInterval(counterVisibilityTimer);
     }
   }
 
@@ -685,6 +687,7 @@ function initCenessodSite() {
     window.addEventListener("pageshow", runCountersWhenVisible, { once: true });
     window.addEventListener("scroll", runCountersWhenVisible, { passive: true });
     window.addEventListener("resize", runCountersWhenVisible, { passive: true });
+    counterVisibilityTimer = window.setInterval(runCountersWhenVisible, 150);
     window.requestAnimationFrame(runCountersWhenVisible);
   }
 
