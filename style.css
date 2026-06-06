@@ -439,6 +439,7 @@ html {
   min-height: 100svh;
   margin-top: 0;
   overflow: hidden;
+  touch-action: pan-y;
   background:
     radial-gradient(circle at 76% 42%, rgba(9, 117, 121, 0.22), transparent 34%),
     radial-gradient(circle at 88% 72%, rgba(38, 177, 158, 0.18), transparent 26%),

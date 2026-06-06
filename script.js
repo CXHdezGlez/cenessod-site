@@ -101,7 +101,9 @@ function initCenessodSite() {
       return (Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453) % 1;
     }
 
-    const ambientParticles = Array.from({ length: 260 }, (_, index) => {
+    const isMobile = window.innerWidth < 768;
+
+    const ambientParticles = Array.from({ length: isMobile ? 50 : 260 }, (_, index) => {
       const x = Math.abs(seededUnit(index, 1));
       const y = Math.abs(seededUnit(index, 2));
       const hueBand = index % 9;
@@ -118,7 +120,7 @@ function initCenessodSite() {
       };
     });
 
-    const firmamentStars = Array.from({ length: 180 }, (_, index) => {
+    const firmamentStars = Array.from({ length: isMobile ? 35 : 180 }, (_, index) => {
       const x = Math.abs(seededUnit(index, 8));
       const y = Math.abs(seededUnit(index, 9));
       const rightBias = Math.min(1, Math.max(0.2, (x - 0.16) / 0.66));
@@ -133,7 +135,7 @@ function initCenessodSite() {
       };
     });
 
-    const trailDust = Array.from({ length: 118 }, (_, index) => {
+    const trailDust = Array.from({ length: isMobile ? 0 : 118 }, (_, index) => {
       const angle = Math.abs(seededUnit(index, 14)) * Math.PI * 2;
       const radius = Math.pow(Math.abs(seededUnit(index, 15)), 0.58);
 
@@ -260,10 +262,8 @@ function initCenessodSite() {
         const px = star.x * width;
         const py = star.y * height;
         const alpha = star.alpha * (0.82 + Math.sin(time * 0.00055 * ambientMotionScale + star.phase) * 0.18);
-        const radius = star.size * (5.4 + star.blur);
+        const radius = star.size * (5.4 + star.blur * 2);
 
-        ctx.save();
-        ctx.filter = `blur(${star.blur}px)`;
         const glow = ctx.createRadialGradient(px, py, 0, px, py, radius);
         glow.addColorStop(0, `rgba(198, 255, 246, ${alpha * 0.42})`);
         glow.addColorStop(0.36, `rgba(158, 230, 216, ${alpha * 0.16})`);
@@ -272,7 +272,6 @@ function initCenessodSite() {
         ctx.beginPath();
         ctx.arc(px, py, radius, 0, Math.PI * 2);
         ctx.fill();
-        ctx.restore();
       });
 
       ambientParticles.forEach((particle, index) => {
@@ -384,25 +383,42 @@ function initCenessodSite() {
 
       ctx.globalCompositeOperation = "source-over";
 
-      animationFrame = window.requestAnimationFrame(draw);
+      if (isAnimating) {
+        animationFrame = window.requestAnimationFrame(draw);
+      }
     }
 
     resizeCanvas();
     canvas.dataset.ready = "true";
     canvas.dataset.interaction = "idle";
     canvas.dataset.motion = reduceMotion ? "soft" : "full";
+
+    let isAnimating = true;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const wasAnimating = isAnimating;
+        isAnimating = entry.isIntersecting;
+        if (isAnimating && !wasAnimating) {
+          animationFrame = window.requestAnimationFrame(draw);
+        } else if (!isAnimating) {
+          window.cancelAnimationFrame(animationFrame);
+        }
+      });
+    }, { threshold: 0.05 });
+    observer.observe(canvas);
+
     draw();
 
     if ("ResizeObserver" in window) {
       const resizeObserver = new ResizeObserver(() => {
         resizeCanvas();
-        if (reduceMotion) draw();
+        if (reduceMotion || !isAnimating) draw();
       });
       resizeObserver.observe(canvas);
     } else {
       window.addEventListener("resize", () => {
         resizeCanvas();
-        if (reduceMotion) draw();
+        if (reduceMotion || !isAnimating) draw();
       }, { passive: true });
     }
   }
