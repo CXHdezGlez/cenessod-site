@@ -162,16 +162,12 @@ function initCenessodSite() {
       const offsetY = ny - 0.5;
 
       hero.classList.add("is-pointer-active");
-      hero.style.setProperty("--hero-cursor-x", `${nx * 100}%`);
-      hero.style.setProperty("--hero-cursor-y", `${ny * 100}%`);
       hero.style.setProperty("--hero-shift-x", `${offsetX * 156}px`);
       hero.style.setProperty("--hero-shift-y", `${offsetY * 116}px`);
       hero.style.setProperty("--hero-core-shift-x", `${offsetX * 150}px`);
       hero.style.setProperty("--hero-core-shift-y", `${offsetY * 106}px`);
       hero.style.setProperty("--hero-tilt-x", `${offsetX * 16}deg`);
       hero.style.setProperty("--hero-tilt-y", `${offsetY * -12}deg`);
-      hero.style.setProperty("--hero-glow-x", `${60 + nx * 30}%`);
-      hero.style.setProperty("--hero-glow-y", `${24 + ny * 52}%`);
       hero.style.setProperty("--hero-orbit-speed", "1.85");
     }
 
@@ -185,8 +181,6 @@ function initCenessodSite() {
       hero.style.setProperty("--hero-core-shift-y", "0px");
       hero.style.setProperty("--hero-tilt-x", "0deg");
       hero.style.setProperty("--hero-tilt-y", "0deg");
-      hero.style.setProperty("--hero-glow-x", "76%");
-      hero.style.setProperty("--hero-glow-y", "42%");
       hero.style.setProperty("--hero-orbit-speed", "1");
     }
 
@@ -347,83 +341,7 @@ function initCenessodSite() {
       drawWave(time, 0.18, 0.12);
       drawWave(time, 0.25, 0.08);
 
-      if (trail.length > 1) {
-        ctx.save();
-        ctx.filter = `blur(${width < 700 ? 15 : 22}px)`;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        trail.forEach((point, index) => {
-          const px = point.x * width;
-          const py = point.y * height;
-          if (index === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        });
-        ctx.strokeStyle = "rgba(38, 177, 158, 0.16)";
-        ctx.lineWidth = width < 700 ? 44 : 62;
-        ctx.stroke();
-        ctx.restore();
-
-        ctx.save();
-        ctx.filter = `blur(${width < 700 ? 4 : 7}px)`;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        trail.forEach((point, index) => {
-          const px = point.x * width;
-          const py = point.y * height;
-          if (index === 0) ctx.moveTo(px, py);
-          else ctx.lineTo(px, py);
-        });
-        ctx.strokeStyle = "rgba(198, 255, 246, 0.12)";
-        ctx.lineWidth = width < 700 ? 10 : 16;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      trail.forEach((point, index) => {
-        const falloff = 1 - index / Math.max(1, trail.length);
-        const radius = falloff * (width < 700 ? 56 : 76) + 16;
-        const px = point.x * width;
-        const py = point.y * height;
-        const alpha = point.life * (0.09 + falloff * 0.11);
-
-        ctx.save();
-        ctx.filter = `blur(${width < 700 ? 8 : 12}px)`;
-        const halo = ctx.createRadialGradient(px, py, 0, px, py, radius);
-        halo.addColorStop(0, `rgba(198, 255, 246, ${alpha * 0.82})`);
-        halo.addColorStop(0.34, `rgba(38, 177, 158, ${alpha * 0.48})`);
-        halo.addColorStop(1, "rgba(38, 177, 158, 0)");
-        ctx.fillStyle = halo;
-        ctx.beginPath();
-        ctx.arc(px, py, radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-
-        if (index < 8) {
-          const dustScale = radius * 0.58;
-          trailDust.forEach((dust, dustIndex) => {
-            if (dustIndex % 2 !== index % 2) return;
-            const dustX = px + dust.x * dustScale;
-            const dustY = py + dust.y * dustScale * 0.82;
-            const dustAlpha = point.life * falloff * dust.alpha * (0.46 + Math.sin(time * 0.0012 + dust.phase) * 0.12);
-
-            ctx.fillStyle = `rgba(198, 255, 246, ${dustAlpha})`;
-            ctx.beginPath();
-            ctx.arc(dustX, dustY, Math.max(0.45, dust.size * falloff), 0, Math.PI * 2);
-            ctx.fill();
-          });
-        }
-
-        if (index === 0) {
-          ctx.fillStyle = `rgba(198, 255, 246, ${point.life * 0.5})`;
-          ctx.beginPath();
-          ctx.arc(px, py, 1.8, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        point.life *= 0.965;
-      });
+      // Trail drawing removed to eliminate pointer spotlight effect
 
       for (let i = 0; i < rendered.length; i += 1) {
         for (let j = i + 1; j < rendered.length; j += 1) {
@@ -446,30 +364,7 @@ function initCenessodSite() {
         }
       }
 
-      if (pointer.strength > 0.02) {
-        const px = pointer.x * width;
-        const py = pointer.y * height;
-
-        rendered.forEach((node) => {
-          const dx = node.x - px;
-          const dy = node.y - py;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          const limit = width < 700 ? 210 : 320;
-
-          if (distance < limit) {
-            const alpha = (1 - distance / limit) * pointer.strength * 0.42;
-            const beam = ctx.createLinearGradient(px, py, node.x, node.y);
-            beam.addColorStop(0, `rgba(198, 255, 246, ${alpha})`);
-            beam.addColorStop(1, `rgba(38, 177, 158, ${alpha * 0.22})`);
-            ctx.strokeStyle = beam;
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.moveTo(px, py);
-            ctx.lineTo(node.x, node.y);
-            ctx.stroke();
-          }
-        });
-      }
+      // Cursor connection beams removed to eliminate follower light beams
 
       rendered.forEach((node) => {
         const glow = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.size * 6);
