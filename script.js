@@ -646,15 +646,15 @@ function initCenessodSite() {
     });
   }
 
-  function areCountersInView() {
+  function haveCountersBeenReached() {
     if (!countersContainer) return false;
 
     const rect = countersContainer.getBoundingClientRect();
-    return rect.top < window.innerHeight && rect.bottom > 0;
+    return rect.top < window.innerHeight * 0.9;
   }
 
   function runCountersWhenVisible() {
-    if (areCountersInView()) {
+    if (haveCountersBeenReached()) {
       countersContainer.classList.add("visible");
       runCounters();
       window.removeEventListener("scroll", runCountersWhenVisible);
