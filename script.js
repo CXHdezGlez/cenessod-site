@@ -549,6 +549,9 @@ function initCenessodSite() {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+        if (entry.target.id === "countersContainer") {
+          window.requestAnimationFrame(runCounters);
+        }
         observer.unobserve(entry.target);
       }
     });
