@@ -625,12 +625,6 @@ function initCenessodSite() {
       const targetStr = counter.getAttribute("data-target");
       if (!targetStr) return;
       const target = parseInt(targetStr, 10);
-      const current = parseInt(counter.textContent, 10);
-
-      if (Number.isFinite(current) && current >= target) {
-        counter.innerText = target;
-        return;
-      }
 
       counter.innerText = "0";
       const duration = 2000;
@@ -688,6 +682,7 @@ function initCenessodSite() {
     window.addEventListener("pageshow", runCountersWhenVisible, { once: true });
     window.addEventListener("scroll", runCountersWhenVisible, { passive: true });
     window.addEventListener("resize", runCountersWhenVisible, { passive: true });
+    window.requestAnimationFrame(runCountersWhenVisible);
   }
 
   // --- Analysis Report Modal Logic ---
