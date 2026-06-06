@@ -559,7 +559,6 @@ function initCenessodSite() {
   fadeElements.forEach((el) => fadeObserver.observe(el));
 
   // Init scroll & events (Passive listener for header)
-  initHeroDataCanvas();
   updateHeaderOnScroll();
   window.addEventListener("scroll", updateHeaderOnScroll, { passive: true });
 
@@ -703,6 +702,8 @@ function initCenessodSite() {
     window.requestAnimationFrame(runCountersWhenVisible);
     if (countersContainer.classList.contains("visible")) runCounters();
   }
+
+  initHeroDataCanvas();
 
   // --- Analysis Report Modal Logic ---
   const reportModal = document.getElementById("reportModal");
