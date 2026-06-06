@@ -620,6 +620,7 @@ function initCenessodSite() {
   const countersContainer = document.getElementById("countersContainer");
   let countersHaveRun = false;
   let counterVisibilityTimer = 0;
+  let counterClassObserver = null;
 
   function runCounters() {
     if (countersHaveRun) return;
@@ -664,10 +665,21 @@ function initCenessodSite() {
       window.removeEventListener("scroll", runCountersWhenVisible);
       window.removeEventListener("resize", runCountersWhenVisible);
       window.clearInterval(counterVisibilityTimer);
+      if (counterClassObserver) counterClassObserver.disconnect();
     }
   }
 
   if (countersContainer && counters.length > 0) {
+    if ("MutationObserver" in window) {
+      counterClassObserver = new MutationObserver(() => {
+        if (countersContainer.classList.contains("visible")) {
+          runCounters();
+          counterClassObserver.disconnect();
+        }
+      });
+      counterClassObserver.observe(countersContainer, { attributes: true, attributeFilter: ["class"] });
+    }
+
     if ("IntersectionObserver" in window) {
       const counterObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -689,6 +701,7 @@ function initCenessodSite() {
     window.addEventListener("resize", runCountersWhenVisible, { passive: true });
     counterVisibilityTimer = window.setInterval(runCountersWhenVisible, 150);
     window.requestAnimationFrame(runCountersWhenVisible);
+    if (countersContainer.classList.contains("visible")) runCounters();
   }
 
   // --- Analysis Report Modal Logic ---
