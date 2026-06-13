@@ -252,6 +252,10 @@ body::after {
   padding-left: 20px;
 }
 
+.seo-section p + p {
+  margin-top: 14px;
+}
+
 .seo-panel {
   position: sticky;
   top: 110px;
@@ -291,6 +295,80 @@ body::after {
   padding: 34px 0;
   color: var(--color-text-secondary);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seo-footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.seo-footer a,
+.footer-bottom a {
+  color: inherit;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.seo-footer a:hover,
+.seo-footer a:focus-visible,
+.footer-bottom a:hover,
+.footer-bottom a:focus-visible {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+}
+
+.privacy-hero {
+  padding-bottom: 44px;
+}
+
+.privacy-updated {
+  margin-top: 22px;
+  color: #9ee6d8;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.privacy-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
+}
+
+.privacy-summary {
+  margin-bottom: 8px;
+  padding: 28px;
+  border: 1px solid rgba(0, 195, 165, 0.18);
+  border-radius: 8px;
+  background: rgba(0, 195, 165, 0.06);
+}
+
+.privacy-toc nav {
+  display: grid;
+  gap: 10px;
+}
+
+.privacy-toc nav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.privacy-toc nav a:hover,
+.privacy-toc nav a:focus-visible {
+  color: var(--color-accent);
+}
+
+.privacy-contact-card {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-contact-card p {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 860px) {
@@ -1393,6 +1471,24 @@ footer+.section::after,
   resize: none;
 }
 
+.form-privacy-note {
+  margin: -2px 0 20px;
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.form-privacy-note a {
+  color: #9ee6d8;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.form-privacy-note a:hover,
+.form-privacy-note a:focus-visible {
+  text-decoration: underline;
+}
+
 /* Footer */
 /* =========================
    FOOTER
@@ -1487,20 +1583,25 @@ footer+.section::after,
 }
 
 .footer-menu ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  column-gap: 26px;
+  row-gap: 10px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .footer-menu li {
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .footer-menu a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: 32px;
   color: var(--color-text-secondary);
+  line-height: 1.45;
   text-decoration: none;
   transition: color 0.25s ease, transform 0.25s ease;
 }
@@ -1531,6 +1632,12 @@ footer+.section::after,
 
   .footer-brand p {
     max-width: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .footer-menu ul {
+    grid-template-columns: 1fr;
   }
 }
 
