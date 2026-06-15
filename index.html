@@ -33,6 +33,31 @@
     <meta name="twitter:description" content="Investigación social, opinión pública, análisis demográfico y visualización de datos para decisiones estratégicas." />
     <meta name="twitter:image" content="https://cenessod.com/media/logo%20reducido%202%20RGB%20(fondo%20oscuro)%20transparente.png" />
     <link rel="canonical" href="https://cenessod.com/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cenessod.com/sitemap.xml" />
+
+    <script>
+        (function () {
+            const canonicalOrigin = 'https://cenessod.com';
+            const legacyRoutes = {
+                '2': '/',
+                '459': '/',
+                '572': '/contacto/'
+            };
+            const params = new URLSearchParams(window.location.search);
+            const legacyPageId = params.get('page_id');
+            const isCenessodHost = window.location.hostname === 'cenessod.com' || window.location.hostname === 'www.cenessod.com';
+
+            if (legacyPageId) {
+                const targetPath = legacyRoutes[legacyPageId] || '/';
+                window.location.replace(new URL(targetPath, canonicalOrigin).href);
+                return;
+            }
+
+            if (isCenessodHost && (window.location.protocol !== 'https:' || window.location.hostname === 'www.cenessod.com')) {
+                window.location.replace(canonicalOrigin + window.location.pathname + window.location.search + window.location.hash);
+            }
+        }());
+    </script>
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
