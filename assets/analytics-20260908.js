@@ -71,6 +71,17 @@
     if (method) gtag('event', 'contact_click', { contact_method: method });
     else if (new URL(href, location.href).hash === '#contacto') gtag('event', 'request_form_click', { page_path: location.pathname });
   });
+  // Only the official Typeform successful-submit callback invokes this hook.
+  const submitted = new Set();
+  window.cenessodTypeformSubmitted = payload => {
+    if (!payload || payload.formId !== 'ArixNAIn' || typeof payload.responseId !== 'string' || !payload.responseId) return;
+    const id = payload.responseId;
+    if (submitted.has(id)) return;
+    submitted.add(id);
+    // Never replay a submission made without analytics consent.
+    if (!enabled || !production || !window.gtag) return;
+    gtag('event', 'generate_lead', { send_to: ID, form_id: 'ArixNAIn', lead_source: 'website_typeform' });
+  };
   const choice = readChoice();
   if (choice === 'granted') start(); else { stop(); panel.hidden = choice === 'denied'; }
 })();
