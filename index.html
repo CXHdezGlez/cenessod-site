@@ -68,6 +68,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #0870a9;outline-offset:3p
 [data-rise]{will-change:transform,opacity}
 .stat-accessible{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 [data-stat-value]{font-variant-numeric:tabular-nums}
+.brand-home{display:inline-block;flex-shrink:0}.brand-home:focus-visible{outline:3px solid #0870a9;outline-offset:6px}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://cenessod.com/#organization","name":"CENESSOD","alternateName":"Centro de Estudios Sociales y Demográficos","url":"https://cenessod.com/","description":"Consultoría de investigación social, demografía y análisis estratégico. Encuestas de opinión pública, evaluación de programas y análisis territorial en México.","areaServed":["México","América Latina"],"address":{"@type":"PostalAddress","streetAddress":"C. Gabriel Márquez 601, Pedro Moreno","addressLocality":"Zapopan","addressRegion":"Jalisco","postalCode":"45180","addressCountry":"MX"},"email":"ceo@cenessod.com","telephone":"+52 333 947 0239","knowsAbout":["Encuestas de opinión pública","Investigación social","Análisis demográfico","Evaluación de programas","Visualización de datos"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Áreas de investigación CENESSOD","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Opinión pública y percepción","url":"https://cenessod.com/servicio.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Investigación social y de mercados","url":"https://cenessod.com/investigacion-social.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Demografía y territorio","url":"https://cenessod.com/demografia-territorio.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Evaluación de programas","url":"https://cenessod.com/evaluacion-programas.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Análisis y visualización de datos","url":"https://cenessod.com/analisis-datos.html"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Canales y conversión interactiva","url":"https://cenessod.com/nosotros.html#canales"}}]},"contactPoint":{"@type":"ContactPoint","email":"ceo@cenessod.com","telephone":"+52 333 947 0239","contactType":"customer service","availableLanguage":["es"]}}
@@ -101,7 +102,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #0870a9;outline-offset:3p
 
   <header style="background:#f7f5f0;border-bottom:1px solid #d2d3d5">
     <div style="width:min(1200px,100% - clamp(32px,8vw,80px));margin:auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 25px;min-height:102px;padding:12px 0">
-      <img src="assets/logo-portada-20260908.svg" alt="CENESSOD" width="204" height="47" style="width:204px;display:block">
+      <a href="/" aria-label="CENESSOD, ir al inicio" class="brand-home"><img src="assets/logo-portada-20260908.svg" alt="CENESSOD" width="204" height="47" style="width:204px;display:block"></a>
       <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="navegacion" style="border:1px solid #d2d3d5;background:#fff;color:#17384a;font:inherit;font-size:15px;font-weight:600;padding:12px 16px;min-height:48px;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1);align-items:center">Menú</button>
       <nav id="navegacion" data-open="false" style="flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:15px">
         <a href="#casos" style="text-decoration:none;color:#17384a;display:inline-flex;align-items:center;min-height:48px;padding:12px 0">Trabajo reciente</a>
@@ -387,7 +388,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #0870a9;outline-offset:3p
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:40px;padding:48px 0">
         <div>
-          <img src="assets/logo-negativo-portada-20260908.svg" alt="CENESSOD" width="224" height="52" loading="lazy" style="width:200px;display:block;margin-bottom:20px">
+          <a href="/" aria-label="CENESSOD, ir al inicio" class="brand-home"><img src="assets/logo-negativo-portada-20260908.svg" alt="CENESSOD" width="224" height="52" loading="lazy" style="width:200px;display:block;margin-bottom:20px"></a>
           <p style="color:#c5cdd2;font-size:14px;margin:0 0 10px">Centro de Estudios Sociales<br>y Demográficos</p>
           <p style="color:#9fb3bf;font-size:14px;margin:0">Investigación social y análisis estratégico para decisiones con fundamento.</p>
         </div>
