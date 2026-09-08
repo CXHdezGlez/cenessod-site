@@ -12,17 +12,15 @@
     <meta property="og:description" content="Conoce que datos personales puede tratar CENESSOD, para que finalidades, como ejercer derechos ARCO y como limitar su uso.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cenessod.com/aviso-de-privacidad/">
-    <meta property="og:image" content="https://cenessod.com/media/logo%20reducido%202%20RGB%20(fondo%20oscuro)%20transparente.png">
+    <meta property="og:image" content="https://cenessod.com/social-cover.png">
     <meta property="og:locale" content="es_MX">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Aviso de Privacidad | CENESSOD">
     <meta name="twitter:description" content="Informacion sobre el tratamiento de datos personales en CENESSOD.">
-    <meta name="twitter:image" content="https://cenessod.com/media/logo%20reducido%202%20RGB%20(fondo%20oscuro)%20transparente.png">
-    <link rel="stylesheet" href="/legacy.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <meta name="twitter:image" content="https://cenessod.com/social-cover.png">
+    <link rel="stylesheet" href="/assets/privacy-brand-20260908.css">
+    <link rel="preload" href="/assets/hanken.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon-portada-20260908.svg">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,18 +39,11 @@
 </head>
 <body class="seo-page privacy-page">
     <a href="#contenido" class="skip-link">Saltar al contenido principal</a>
-    <header class="seo-page-header">
-        <div class="container seo-nav">
-            <a class="seo-logo" href="/" aria-label="CENESSOD - inicio">
-                <img src="/media/logo reducido 2 RGB (fondo oscuro) transparente.png" alt="CENESSOD" width="1141" height="487">
-            </a>
-            <ul class="seo-nav-links">
-                <li><a href="/#servicios">Servicios</a></li>
-                <li><a href="/publicaciones.html">Análisis</a></li>
-                <li><a href="/contacto/">Contacto</a></li>
-            </ul>
-        </div>
-    </header>
+    <header class="brand-header"><div class="container brand-nav">
+<a href="/" aria-label="CENESSOD, inicio"><img src="/assets/logo-portada-20260908.svg" alt="CENESSOD" width="204" height="47"></a>
+<button class="menu-toggle" aria-expanded="false" aria-controls="brand-navigation">Menú</button>
+<nav id="brand-navigation" aria-label="Navegación principal"><a href="/#servicios">Servicios</a><a href="/#metodo">Cómo trabajamos</a><a href="/publicaciones.html">Publicaciones</a><a href="/nosotros.html">Nosotros</a><a class="brand-button" href="/#contacto">Solicitar propuesta <span aria-hidden="true">↗</span></a></nav>
+</div></header>
 
     <main id="contenido">
         <section class="seo-hero privacy-hero">
@@ -179,11 +170,7 @@
         </section>
     </main>
 
-    <footer class="seo-footer">
-        <div class="container seo-footer-links">
-            <span>© 2026 CENESSOD · Centro de Estudios Sociales y Demográficos</span>
-            <a href="/aviso-de-privacidad/">Aviso de Privacidad</a>
-        </div>
-    </footer>
+    <footer class="brand-footer"><div class="container footer-layout"><div><a href="/" aria-label="CENESSOD, inicio"><img src="/assets/logo-negativo-portada-20260908.svg" alt="CENESSOD" width="204" height="47" loading="lazy"></a><p>Centro de Estudios Sociales<br>y Demográficos</p></div><div><p>Contacto de privacidad</p><a href="mailto:ceo@cenessod.com">ceo@cenessod.com</a><p>Atención únicamente con cita.</p></div><div><a href="/">Volver al inicio</a><p>© 2026 CENESSOD</p></div></div></footer>
+<script>const toggle=document.querySelector('.menu-toggle');const nav=document.querySelector('#brand-navigation');toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav.classList.toggle('is-open',open);});nav.addEventListener('keydown',e=>{if(e.key==='Escape'){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false');toggle.focus();}});</script>
 </body>
 </html>
