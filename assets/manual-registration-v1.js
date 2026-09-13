@@ -55,6 +55,7 @@
       success.hidden = false;
       success.focus();
       download.click();
+      document.dispatchEvent(new Event('cenessod:manual-registered'));
     } catch {
       error.textContent = 'No pudimos confirmar tu registro. Revisa tu conexión e inténtalo de nuevo. Tu correo permanece en el formulario.';
       error.hidden = false;

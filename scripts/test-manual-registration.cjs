@@ -5,7 +5,7 @@ const { resolve } = require('node:path');
 const source = readFileSync(resolve(__dirname, '../assets/manual-registration-v1.js'), 'utf8');
 
 async function check({ valid = true, checked = true, mode = 'success' } = {}) {
-  let submit, release, downloads = 0, requests = 0, payload;
+  let submit, release, downloads = 0, requests = 0, payload, registered = 0;
   const button = { disabled: true, innerHTML: 'Descargar' };
   const form = { style: {}, querySelector: () => button,
     addEventListener: (_, callback) => { submit = callback; },
@@ -13,7 +13,7 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
   const nodes = { 'form-lead-magnet': form, 'lm-email': { value: ' qa@example.invalid ' },
     'lm-consent': { checked }, 'lm-error': { hidden: true, focus() {} },
     'lm-success': { hidden: true, focus() {} }, 'lm-download': { click() { downloads++; } } };
-  runInNewContext(source, { document: { getElementById: id => nodes[id] },
+  runInNewContext(source, { document: { getElementById: id => nodes[id], dispatchEvent(event) { assert.equal(event.type, 'cenessod:manual-registered'); registered++; } },
     AbortController, setTimeout, clearTimeout,
     crypto: { randomUUID: () => 'a12a1234-1234-4234-8234-123456789012' },
     fetch: async (_, options) => {
@@ -45,13 +45,16 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
   if (!valid || !checked) {
     assert.equal(requests, 0);
     assert.equal(downloads, 0);
+    assert.equal(registered, 0);
   } else if (['offline', 'timeout', 'rejected', 'incomplete'].includes(mode)) {
     assert.equal(downloads, 0);
     assert.equal(nodes['lm-error'].hidden, false);
     assert.notEqual(form.hidden, true);
     assert.equal(nodes['lm-email'].value, 'qa@example.invalid');
+    assert.equal(registered, 0);
   } else {
     assert.equal(downloads, 1);
+    assert.equal(registered, 1);
     assert.equal(form.hidden, true);
     assert.equal(nodes['lm-success'].hidden, false);
     assert.equal(payload.writes[0].update.fields.consentimiento.booleanValue, true);

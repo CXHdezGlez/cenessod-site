@@ -84,6 +84,10 @@
     if (method) gtag('event', 'contact_click', { contact_method: method });
     else if (new URL(href, location.href).hash === '#contacto') gtag('event', 'request_form_click', { page_path: location.pathname });
   });
+  document.addEventListener('cenessod:manual-registered', () => {
+    if (!enabled || !production || !window.gtag) return;
+    gtag('event', 'generate_lead', { send_to: ID, lead_source: 'manual_registration', form_id: 'manual_metodologico_2026' });
+  });
   // Only the official Typeform successful-submit callback invokes this hook.
   const submitted = new Set();
   window.cenessodTypeformSubmitted = payload => {
