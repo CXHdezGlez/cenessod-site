@@ -2,6 +2,7 @@
 .gemini/
 .env
 *.webp
+!assets/*.webp
 *.png
 temp/
 scratch/
