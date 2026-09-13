@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://cenessod.com/analisis-datos.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/articulo.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/demografia-territorio.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/evaluacion-programas.html</loc>
-  </url>
-  <url>
     <loc>https://cenessod.com/</loc>
     <lastmod>2026-09-13</lastmod>
-  </url>
-  <url>
-    <loc>https://cenessod.com/investigacion-social.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/materiales.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/nosotros.html</loc>
-  </url>
-  <url>
-    <loc>https://cenessod.com/publicaciones.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://cenessod.com/servicio.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/investigacion-social.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/demografia-territorio.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/evaluacion-programas.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/analisis-datos.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/nosotros.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/publicaciones.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/articulo.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cenessod.com/materiales.html</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cenessod.com/aviso-de-privacidad/</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
