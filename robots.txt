@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assets/manual-metodologico-cenessod-2026.pdf
+
 Sitemap: https://cenessod.com/sitemap.xml
