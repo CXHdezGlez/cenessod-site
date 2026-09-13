@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /manual_registros/{registro} {
+      allow create: if registro.matches('^[a-f0-9-]{36}$')
+        && request.resource.data.keys().hasAll(['email', 'consentimiento', 'consentimientoVersion', 'recurso', 'origen', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['email', 'consentimiento', 'consentimientoVersion', 'recurso', 'origen', 'createdAt'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        && request.resource.data.consentimiento == true
+        && request.resource.data.consentimientoVersion == 'manual-publicaciones-v1'
+        && request.resource.data.recurso == 'manual-metodologico-2026'
+        && request.resource.data.origen == 'cenessod.com'
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

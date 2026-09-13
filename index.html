@@ -673,18 +673,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
                 <form id="form-lead-magnet" style="display:grid;gap:14px">
                   <div>
                     <label for="lm-email" style="display:block;font-size:13px;font-weight:600;color:var(--c-tinta);margin-bottom:6px">Correo institucional o corporativo</label>
-                    <input type="email" id="lm-email" name="email" autocomplete="email" placeholder="correo@tuinstitucion.gob.mx" required style="width:100%;height:46px;padding:0 14px;border:1px solid var(--c-linea);background:#fff;font-size:14.5px;color:var(--c-tinta);font-family:inherit">
+                    <input type="email" id="lm-email" name="email" maxlength="254" autocomplete="email" placeholder="correo@tuinstitucion.gob.mx" required style="width:100%;height:46px;padding:0 14px;border:1px solid var(--c-linea);background:#fff;font-size:14.5px;color:var(--c-tinta);font-family:inherit">
                   </div>
                   <label for="lm-consent" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--c-texto-secundario);line-height:1.45;cursor:pointer">
                     <input type="checkbox" id="lm-consent" name="consent" required style="width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--c-tinta)">
                     <span>Acepto que CENESSOD use mi correo para enviarme este manual y publicaciones posteriores, conforme al <a href="/aviso-de-privacidad/" style="font-weight:600;color:var(--c-azul)">Aviso de privacidad</a>. Puedo darme de baja cuando quiera.</span>
                   </label>
-                  <button type="submit" class="btn-press" style="width:100%;min-height:48px;background:var(--c-tinta);color:#fff;border:none;font-weight:600;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background-color 180ms ease">
+                  <button type="submit" disabled class="btn-press" style="width:100%;min-height:48px;background:var(--c-tinta);color:#fff;border:none;font-weight:600;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background-color 180ms ease">
                     Descargar manual en PDF <span aria-hidden="true">↓</span>
                   </button>
                 </form>
-                <div id="lm-success" style="display:none;padding:12px;background:#e8f4fd;border:1px solid #bce1f8;color:var(--c-tinta);font-size:13.5px;margin-top:10px">
-                  ✓ Descarga iniciada automáticamente. Si no inició, <a href="assets/manual-metodologico-cenessod-2026.pdf" download style="color:var(--c-azul);font-weight:600;text-decoration:underline">haz clic aquí para abrir el PDF</a>.
+                <p id="lm-error" role="alert" tabindex="-1" hidden style="color:#8b2323;font-size:13.5px;margin-top:10px"></p>
+                <noscript><p>Activa JavaScript para registrar tu correo y descargar el manual.</p></noscript>
+                <div id="lm-success" role="status" tabindex="-1" hidden style="padding:12px;background:#e8f4fd;border:1px solid #bce1f8;color:var(--c-tinta);font-size:13.5px;margin-top:10px">
+                  ✓ Registro confirmado. Tu manual está listo. Si la descarga no inició, <a id="lm-download" href="assets/manual-metodologico-cenessod-2026.pdf" download style="color:var(--c-azul);font-weight:600;text-decoration:underline">haz clic aquí para abrir el PDF</a>.
                 </div>
               </div>
             </div>
@@ -916,44 +918,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   document.addEventListener('click', function(){
     tooltips.forEach(function(t){ t.classList.remove('is-active'); });
   });
-
-  // 4. Manual metodológico: descarga + registro del correo
-  // Sin servicio de captura conectado, el registro se entrega por correo para no perder el contacto.
-  var ENDPOINT_REGISTRO = ''; // una URL de webhook propia; si queda vacío se usa el correo.
-  var formLM = document.getElementById('form-lead-magnet');
-  var lmSuccess = document.getElementById('lm-success');
-
-  if (formLM) {
-    formLM.addEventListener('submit', function(e){
-      e.preventDefault();
-      if (!formLM.checkValidity()) { formLM.reportValidity(); return; }
-      var emailVal = document.getElementById('lm-email').value.trim();
-
-      var link = document.createElement('a');
-      link.href = 'assets/manual-metodologico-cenessod-2026.pdf';
-      link.download = 'manual-metodologico-cenessod-2026.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      if (ENDPOINT_REGISTRO) {
-        fetch(ENDPOINT_REGISTRO, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: emailVal, consentimiento: true, recurso: 'Manual metodológico 2026' })
-        }).catch(function(){});
-      } else {
-        window.open('mailto:ceo@cenessod.com'
-          + '?subject=' + encodeURIComponent('Descarga del manual metodológico 2026')
-          + '&body=' + encodeURIComponent('Correo de contacto: ' + emailVal + '\nAcepta el aviso de privacidad: sí'), '_blank');
-      }
-
-      formLM.style.display = 'none';
-      if (lmSuccess) lmSuccess.style.display = 'block';
-    });
-  }
-
 })();
 </script>
+<script src="assets/manual-registration-v1.js" defer></script>
 </body>
 </html>
