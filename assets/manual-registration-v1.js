@@ -54,6 +54,7 @@
       form.style.display = 'none';
       success.hidden = false;
       success.focus();
+      download.href = 'assets/manual-metodologico-cenessod-2026.pdf?v=20260913';
       download.click();
       document.dispatchEvent(new Event('cenessod:manual-registered'));
     } catch {
