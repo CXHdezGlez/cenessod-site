@@ -2,15 +2,8 @@ User-agent: *
 Allow: /
 # Manual metodológico: se entrega tras registro
 Disallow: /assets/manual-metodologico-cenessod-2026.pdf
-# Archivos de trabajo que no forman parte del sitio público
-Disallow: /FINAPP/
-Disallow: /bin/
+# Infraestructura (reglas de Firestore y pruebas)
 Disallow: /scripts/
-Disallow: /references/
 Disallow: /firebase/
-Disallow: /ANÁLISIS/
-Disallow: /*.md$
-Disallow: /*.txt$
-Allow: /robots.txt
 
 Sitemap: https://cenessod.com/sitemap.xml
