@@ -12,8 +12,10 @@ El PDF continúa siendo un recurso público de GitHub Pages; este flujo es captu
 
 Antibots en la página (desde 3 oct 2026): campo trampa oculto `lm-website` (honeypot) y tiempo mínimo de 3 s entre la carga y el envío. Si se activan, se muestra el éxito y la descarga pero no se guarda el registro. Ambos filtros viven solo en el navegador: un bot que llame directo a la API REST los evita.
 
-No hay App Check ni limitación de solicitudes en servidor; la validación del esquema no es una protección contra bots. Para campañas con tráfico elevado, configurar App Check antes de ampliar cuotas o habilitar facturación. El plan Spark conserva sus límites de uso.
+App Check (desde 3 oct 2026): app web `1:102125314463:web:a10a03f91dbae374131daa`, proveedor reCAPTCHA v3 (la clave secreta solo está en la consola de Firebase). El script carga el SDK 12.19.0 desde gstatic al primer foco en el formulario y envía el token en el encabezado `X-Firebase-AppCheck`. Si no obtiene token, envía sin él: el registro solo se rechaza cuando App Check está en modo "Aplicar" para Cloud Firestore. Antes de activarlo, comprobar en App Check → APIs → Cloud Firestore que las solicitudes aparecen como verificadas. Para pruebas locales (localhost) se necesita un token de depuración de App Check.
 
-Verificación: pruebas del controlador con `node scripts/test-manual-registration.cjs`; comprobación real de escritura y rechazo de consultas públicas, correo inválido, consentimiento falso y campos inesperados. Los registros cuyo correo es `prueba-integracion-cenessod@example.invalid` son pruebas técnicas y deben excluirse de listas de contactos.
+No hay limitación de solicitudes en servidor. El plan Spark conserva sus límites de uso.
+
+Verificación: pruebas del controlador con `node --experimental-vm-modules scripts/test-manual-registration.cjs`; comprobación real de escritura y rechazo de consultas públicas, correo inválido, consentimiento falso y campos inesperados. Los registros cuyo correo es `prueba-integracion-cenessod@example.invalid` son pruebas técnicas y deben excluirse de listas de contactos.
 
 Reglas desplegadas: `firestore.rules`. Mantener este archivo sincronizado con la consola al modificarlas.
