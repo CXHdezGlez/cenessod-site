@@ -68,7 +68,9 @@
     try { localStorage.setItem(KEY, JSON.stringify({ choice, at: Date.now() })); } catch { /* Consent still applies to this page. */ }
     panel.hidden = true;
     if (choice === 'granted' || choice === 'measurement') start(choice); else stop();
-    (opener || settings).focus();
+    // Solo devuelve el foco al botón del pie si el panel se abrió desde ahí; en la primera visita
+    // mover el foco al pie hacía que la página saltara hasta abajo.
+    if (opener) { opener.focus({ preventScroll: true }); opener = null; }
   });
   window.addEventListener('storage', e => {
     if (e.key !== KEY) return;

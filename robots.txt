@@ -2,8 +2,5 @@ User-agent: *
 Allow: /
 # Manual metodológico: se entrega tras registro
 Disallow: /assets/manual-metodologico-cenessod-2026.pdf
-# Infraestructura (reglas de Firestore y pruebas)
-Disallow: /scripts/
-Disallow: /firebase/
 
 Sitemap: https://cenessod.com/sitemap.xml

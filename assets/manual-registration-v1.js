@@ -12,7 +12,13 @@
   // Igual que en firestore.rules: dominios de correo personal o desechable que no se aceptan.
   const PERSONAL_EMAIL = /^[^@]+@(gmail\.com|googlemail\.com|hotmail\.[a-z.]+|outlook\.[a-z.]+|live\.[a-z.]+|msn\.com|windowslive\.com|yahoo\.[a-z.]+|ymail\.com|rocketmail\.com|icloud\.com|me\.com|mac\.com|aol\.com|aim\.com|protonmail\.(com|ch)|proton\.me|pm\.me|gmx\.[a-z.]+|mail\.com|email\.com|zoho\.com|zohomail\.com|yandex\.[a-z.]+|ya\.ru|mail\.ru|tutanota\.com|tutamail\.com|tuta\.io|hey\.com|fastmail\.com|prodigy\.net\.mx|qq\.com|163\.com|126\.com|mailinator\.com|guerrillamail\.[a-z.]+|sharklasers\.com|10minutemail\.[a-z.]+|temp-mail\.[a-z.]+|tempmail\.[a-z.]+|yopmail\.[a-z.]+)$/i;
   const PERSONAL_MSG = 'Usa tu correo institucional o corporativo. No aceptamos correos personales como Gmail, Outlook, Hotmail, Yahoo o iCloud.';
-  const checkDomain = () => email.setCustomValidity(PERSONAL_EMAIL.test(email.value.trim()) ? PERSONAL_MSG : '');
+  // Igual que en firestore.rules: solo caracteres habituales de un correo, sin punto final ni símbolos al inicio.
+  const VALID_EMAIL = /^[A-Za-z0-9][A-Za-z0-9._%+-]*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
+  const INVALID_MSG = 'Escribe un correo válido, por ejemplo nombre@institucion.gob.mx.';
+  const checkDomain = () => {
+    const value = email.value.trim();
+    email.setCustomValidity(!VALID_EMAIL.test(value) ? INVALID_MSG : PERSONAL_EMAIL.test(value) ? PERSONAL_MSG : '');
+  };
   if (email.addEventListener) email.addEventListener('input', checkDomain);
   const buttonLabel = button.innerHTML;
   // Antibots: un humano tarda más de unos segundos en escribir su correo y marcar el consentimiento.
@@ -28,6 +34,7 @@
     siteKey: '6Ld2y90tAAAAAP_ZjgM49yvqVLDgQ7on_VdIDRxd',
     appId: '1:102125314463:web:a10a03f91dbae374131daa'
   };
+  const TOKEN_TIMEOUT_MS = 8000;
   let appCheckReady = null;
   let submitting = false;
 
@@ -41,9 +48,14 @@
         const app = initializeApp({ apiKey, projectId: 'cenessod-9fa05', appId: APP_CHECK.appId }, 'manual-registro');
         const appCheck = initializeAppCheck(app, {
           provider: new ReCaptchaEnterpriseProvider(APP_CHECK.siteKey),
-          isTokenAutoRefreshEnabled: true
+          // Sin renovación automática: el token se pide solo al enviar el formulario.
+          isTokenAutoRefreshEnabled: false
         });
         return () => getToken(appCheck, false).then(result => result.token);
+      }).catch(err => {
+        // Si el SDK no cargó, el siguiente intento vuelve a cargarlo sin recargar la página.
+        appCheckReady = null;
+        throw err;
       });
       appCheckReady.catch(() => {});
     }
@@ -52,12 +64,22 @@
 
   // Si no se obtiene el token se envía sin él: antes de "Aplicar" el registro se guarda igual;
   // después, Firestore lo rechaza y se muestra el mensaje de error.
+  // Con un tiempo máximo, para que el botón no se quede bloqueado si el SDK o reCAPTCHA no responden.
   async function appCheckToken() {
+    let timer;
+    const timeLimit = new Promise(resolve => { timer = setTimeout(() => resolve(null), TOKEN_TIMEOUT_MS); });
+    const attempt = (async () => {
+      try {
+        const fetchToken = await initAppCheck();
+        return await fetchToken();
+      } catch {
+        return null;
+      }
+    })();
     try {
-      const fetchToken = await initAppCheck();
-      return await fetchToken();
-    } catch {
-      return null;
+      return await Promise.race([attempt, timeLimit]);
+    } finally {
+      clearTimeout(timer);
     }
   }
 
@@ -92,12 +114,13 @@
     button.textContent = 'Guardando registro…';
     form.setAttribute('aria-busy', 'true');
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
+    let timeout;
     try {
       const name = `${database}/documents/manual_registros/${crypto.randomUUID()}`;
       const headers = { 'Content-Type': 'application/json' };
       const token = await appCheckToken();
       if (token) headers['X-Firebase-AppCheck'] = token;
+      timeout = setTimeout(() => controller.abort(), 15000);
       const response = await fetch(endpoint, {
         method: 'POST',
         headers,

@@ -21,3 +21,10 @@ No hay limitación de solicitudes en servidor. El plan Spark conserva sus límit
 Verificación: pruebas del controlador con `node --experimental-vm-modules scripts/test-manual-registration.cjs`; comprobación real de escritura y rechazo de consultas públicas, correo inválido, consentimiento falso y campos inesperados. Los registros cuyo correo es `prueba-integracion-cenessod@example.invalid` son pruebas técnicas y deben excluirse de listas de contactos.
 
 Reglas desplegadas: `firestore.rules`. Mantener este archivo sincronizado con la consola al modificarlas.
+
+Ajustes tras la auditoría del 3 oct 2026 (`security-audit-skill`, run-1):
+- El correo debe cumplir `^[A-Za-z0-9][A-Za-z0-9._%+-]*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$` (reglas y script). Evita valores que se interpreten como fórmula al exportar (`=`, `+`, `-`, `@` al inicio, comas, comillas, `<>`) y cierra el punto final que esquivaba la lista de dominios personales (`x@gmail.com.`).
+- El ID del documento debe ser un UUID con formato 8-4-4-4-12.
+- App Check sin renovación automática: el token se pide al enviar, con un límite de 8 s; si el SDK no carga, el siguiente intento lo vuelve a cargar sin recargar la página.
+- `robots.txt` ya no anuncia `/firebase/` ni `/scripts/`.
+- Pendiente en consola: restringir la clave de API por referrer (`cenessod.com/*`) y por API; borrar la clave reCAPTCHA v3 sin uso (`6LdQ090t…`).

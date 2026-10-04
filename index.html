@@ -147,6 +147,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   transform:translate(2px,-2px);
 }
 
+
+/* Encabezado fijo (sticky). El overlay del menú móvil vive dentro del header
+   para compartir su contexto de apilamiento y quedar por encima del contenido. */
+.site-header{position:sticky;top:0;z-index:100;transition:box-shadow 200ms ease}
+.site-header.is-scrolled{box-shadow:0 8px 28px -18px rgba(23,56,74,0.35)}
+.header-row{min-height:96px;padding:12px 0}
+.header-logo{width:204px}
+html{scroll-padding-top:112px}
+@media (max-width:1060px){
+  .header-row{min-height:68px;padding:8px 0}
+  .header-logo{width:160px;height:auto}
+  html{scroll-padding-top:84px}
+}
 #drawer-overlay{display:none}
 #drawer-close{display:none}
 
@@ -231,14 +244,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 <!-- Línea focal institucional cian (Punto 1) -->
 <div style="height:3px;background:var(--c-cian);width:100%"></div>
 
-<div id="drawer-overlay" aria-hidden="true"></div>
-
 <div>
-  <!-- HEADER -->
-  <header style="background:var(--c-papel);border-bottom:1px solid var(--c-linea)">
-    <div style="width:min(1200px,100% - clamp(32px,8vw,80px));margin:auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 25px;min-height:96px;padding:12px 0">
+  <!-- HEADER (fijo al hacer scroll, igual que en las páginas internas) -->
+  <header class="site-header" style="background:var(--c-papel);border-bottom:1px solid var(--c-linea)">
+    <div id="drawer-overlay" aria-hidden="true"></div>
+    <div style="width:min(1200px,100% - clamp(32px,8vw,80px));margin:auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 25px" class="header-row">
       <a href="/" aria-label="Inicio CENESSOD" style="display:inline-flex">
-        <img src="assets/logo-smYW2iNk.svg" alt="CENESSOD" width="204" height="47" style="width:204px;display:block">
+        <img class="header-logo" src="assets/logo-smYW2iNk.svg" alt="CENESSOD" width="204" height="47" style="display:block">
       </a>
       
       <button type="button" id="menu-toggle" aria-expanded="false" aria-controls="navegacion" style="border:1px solid var(--c-linea);background:#fff;color:var(--c-tinta);font:inherit;font-size:15px;font-weight:600;padding:12px 18px;min-height:48px;cursor:pointer;align-items:center;gap:6px">
@@ -847,6 +859,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 <script>
 (function(){
+  // 0. Sombra del encabezado fijo al bajar
+  var siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    var onScroll = function(){ siteHeader.classList.toggle('is-scrolled', window.scrollY > 4); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // 1. Mobile Drawer Navigation (Punto 8)
   var btnToggle = document.getElementById('menu-toggle');
   var btnClose = document.getElementById('drawer-close');
@@ -945,6 +965,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   });
 })();
 </script>
-<script src="assets/manual-registration-v1.js?v=manual5" defer></script>
+<script src="assets/manual-registration-v1.js?v=manual6" defer></script>
 </body>
 </html>
