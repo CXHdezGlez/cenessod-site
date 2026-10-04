@@ -21,7 +21,7 @@ async function check({ valid = true, checked = true, mode = 'success', honeypot 
   const sdk = {
     'firebase-app.js': { initializeApp: (config, name) => ({ config, name }) },
     'firebase-app-check.js': {
-      ReCaptchaV3Provider: function (key) { this.key = key; },
+      ReCaptchaEnterpriseProvider: function (key) { this.key = key; },
       initializeAppCheck: (app, options) => ({ app, options }),
       getToken: async () => { if (appCheck === 'fail') throw new Error('recaptcha'); return { token: 'tok-123' }; }
     }

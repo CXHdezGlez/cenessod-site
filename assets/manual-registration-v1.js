@@ -16,11 +16,11 @@
   const apiKey = 'AIzaSyBwu6T3ILFnk1ZfqehoGOjg0yp7Tw4tE_8';
   const database = 'projects/cenessod-9fa05/databases/(default)';
   const endpoint = `https://firestore.googleapis.com/v1/${database}/documents:commit?key=${apiKey}`;
-  // Firebase App Check con reCAPTCHA v3: Firestore solo acepta escrituras que traen un token válido
+  // Firebase App Check con Fraud Defense (reCAPTCHA Enterprise): Firestore solo acepta escrituras que traen un token válido
   // (cuando App Check está en modo "Aplicar"). La clave de sitio es pública.
   const APP_CHECK = {
     sdk: 'https://www.gstatic.com/firebasejs/12.19.0',
-    siteKey: '6LdQ090tAAAAAMxdIq-TxqaCKQV4c36JH5sxEDqK',
+    siteKey: '6Ld2y90tAAAAAP_ZjgM49yvqVLDgQ7on_VdIDRxd',
     appId: '1:102125314463:web:a10a03f91dbae374131daa'
   };
   let appCheckReady = null;
@@ -32,10 +32,10 @@
       appCheckReady = Promise.all([
         import(`${APP_CHECK.sdk}/firebase-app.js`),
         import(`${APP_CHECK.sdk}/firebase-app-check.js`)
-      ]).then(([{ initializeApp }, { initializeAppCheck, ReCaptchaV3Provider, getToken }]) => {
+      ]).then(([{ initializeApp }, { initializeAppCheck, ReCaptchaEnterpriseProvider, getToken }]) => {
         const app = initializeApp({ apiKey, projectId: 'cenessod-9fa05', appId: APP_CHECK.appId }, 'manual-registro');
         const appCheck = initializeAppCheck(app, {
-          provider: new ReCaptchaV3Provider(APP_CHECK.siteKey),
+          provider: new ReCaptchaEnterpriseProvider(APP_CHECK.siteKey),
           isTokenAutoRefreshEnabled: true
         });
         return () => getToken(appCheck, false).then(result => result.token);
