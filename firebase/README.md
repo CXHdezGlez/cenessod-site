@@ -10,6 +10,8 @@ La descarga se inicia únicamente tras recibir confirmación del commit de Fires
 
 El PDF continúa siendo un recurso público de GitHub Pages; este flujo es captura de registros, no un control de acceso al archivo.
 
+Antibots en la página (desde 3 oct 2026): campo trampa oculto `lm-website` (honeypot) y tiempo mínimo de 3 s entre la carga y el envío. Si se activan, se muestra el éxito y la descarga pero no se guarda el registro. Ambos filtros viven solo en el navegador: un bot que llame directo a la API REST los evita.
+
 No hay App Check ni limitación de solicitudes en servidor; la validación del esquema no es una protección contra bots. Para campañas con tráfico elevado, configurar App Check antes de ampliar cuotas o habilitar facturación. El plan Spark conserva sus límites de uso.
 
 Verificación: pruebas del controlador con `node scripts/test-manual-registration.cjs`; comprobación real de escritura y rechazo de consultas públicas, correo inválido, consentimiento falso y campos inesperados. Los registros cuyo correo es `prueba-integracion-cenessod@example.invalid` son pruebas técnicas y deben excluirse de listas de contactos.

@@ -8,10 +8,23 @@
   const error = document.getElementById('lm-error');
   const success = document.getElementById('lm-success');
   const download = document.getElementById('lm-download');
+  const trap = document.getElementById('lm-website');
   const buttonLabel = button.innerHTML;
+  // Antibots: un humano tarda más de unos segundos en escribir su correo y marcar el consentimiento.
+  const MIN_FILL_MS = 3000;
+  const startedAt = Date.now();
   const database = 'projects/cenessod-9fa05/databases/(default)';
   const endpoint = `https://firestore.googleapis.com/v1/${database}/documents:commit?key=AIzaSyBwu6T3ILFnk1ZfqehoGOjg0yp7Tw4tE_8`;
   let submitting = false;
+
+  function showSuccess() {
+    form.hidden = true;
+    form.style.display = 'none';
+    success.hidden = false;
+    success.focus();
+    download.href = 'assets/manual-metodologico-cenessod-2026.pdf?v=20260913';
+    download.click();
+  }
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -22,6 +35,11 @@
       return;
     }
     error.hidden = true;
+    // Honeypot o envío demasiado rápido: se muestra el éxito sin guardar el registro.
+    if ((trap && trap.value) || Date.now() - startedAt < MIN_FILL_MS) {
+      showSuccess();
+      return;
+    }
     submitting = true;
     button.disabled = true;
     button.textContent = 'Guardando registro…';
@@ -50,12 +68,7 @@
       if (!response.ok) throw new Error('Registration was not confirmed');
       const result = await response.json();
       if (!result.writeResults?.[0]?.updateTime) throw new Error('Missing write confirmation');
-      form.hidden = true;
-      form.style.display = 'none';
-      success.hidden = false;
-      success.focus();
-      download.href = 'assets/manual-metodologico-cenessod-2026.pdf?v=20260913';
-      download.click();
+      showSuccess();
       document.dispatchEvent(new Event('cenessod:manual-registered'));
     } catch {
       error.textContent = 'No pudimos confirmar tu registro. Revisa tu conexión e inténtalo de nuevo. Tu correo permanece en el formulario.';

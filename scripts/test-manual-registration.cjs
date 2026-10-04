@@ -4,7 +4,7 @@ const assert = require('node:assert/strict');
 const { resolve } = require('node:path');
 const source = readFileSync(resolve(__dirname, '../assets/manual-registration-v1.js'), 'utf8');
 
-async function check({ valid = true, checked = true, mode = 'success' } = {}) {
+async function check({ valid = true, checked = true, mode = 'success', honeypot = '', elapsed = 5000 } = {}) {
   let submit, release, downloads = 0, requests = 0, payload, registered = 0;
   const button = { disabled: true, innerHTML: 'Descargar' };
   const form = { style: {}, querySelector: () => button,
@@ -12,8 +12,10 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
     checkValidity: () => valid, reportValidity() {}, setAttribute() {}, removeAttribute() {} };
   const nodes = { 'form-lead-magnet': form, 'lm-email': { value: ' qa@example.invalid ' },
     'lm-consent': { checked }, 'lm-error': { hidden: true, focus() {} },
-    'lm-success': { hidden: true, focus() {} }, 'lm-download': { click() { downloads++; } } };
-  runInNewContext(source, { document: { getElementById: id => nodes[id], dispatchEvent(event) { assert.equal(event.type, 'cenessod:manual-registered'); registered++; } },
+    'lm-success': { hidden: true, focus() {} }, 'lm-website': { value: honeypot }, 'lm-download': { click() { downloads++; } } };
+  let now = 1000;
+  const FakeDate = { now: () => now };
+  runInNewContext(source, { Date: FakeDate, document: { getElementById: id => nodes[id], dispatchEvent(event) { assert.equal(event.type, 'cenessod:manual-registered'); registered++; } },
     AbortController, setTimeout, clearTimeout,
     crypto: { randomUUID: () => 'a12a1234-1234-4234-8234-123456789012' },
     fetch: async (_, options) => {
@@ -32,6 +34,7 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
         { writeResults: [{ updateTime: '2026-09-13T00:00:00Z' }] } };
     }, Event });
   assert.equal(button.disabled, false);
+  now += elapsed;
   const first = submit({ preventDefault() {} });
   if (mode === 'double') {
     assert.equal(button.disabled, true);
@@ -42,7 +45,12 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
   }
   await first;
   assert.equal(button.disabled, false);
-  if (!valid || !checked) {
+  if (honeypot || elapsed < 3000) {
+    assert.equal(requests, 0);
+    assert.equal(registered, 0);
+    assert.equal(downloads, 1);
+    assert.equal(nodes['lm-success'].hidden, false);
+  } else if (!valid || !checked) {
     assert.equal(requests, 0);
     assert.equal(downloads, 0);
     assert.equal(registered, 0);
@@ -66,6 +74,8 @@ async function check({ valid = true, checked = true, mode = 'success' } = {}) {
   await check();
   await check({ valid: false });
   await check({ checked: false });
+  await check({ honeypot: 'https://spam.example' });
+  await check({ elapsed: 800 });
   for (const mode of ['double', 'offline', 'timeout', 'rejected', 'incomplete']) await check({ mode });
-  console.log('PASS: save confirmation, validation, consent, double submit, network failure, timeout, rejected and incomplete responses');
+  console.log('PASS: honeypot, fast-submit trap, save confirmation, validation, consent, double submit, network failure, timeout, rejected and incomplete responses');
 })().catch(error => { console.error(error); process.exitCode = 1; });
