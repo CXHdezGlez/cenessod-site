@@ -5,14 +5,15 @@ const assert = require('node:assert/strict');
 const { resolve } = require('node:path');
 const source = readFileSync(resolve(__dirname, '../assets/manual-registration-v1.js'), 'utf8');
 
-async function check({ valid = true, checked = true, mode = 'success', honeypot = '', elapsed = 5000, appCheck = 'ok' } = {}) {
+async function check({ valid = true, checked = true, mode = 'success', honeypot = '', elapsed = 5000, appCheck = 'ok', address = ' qa@example.invalid ' } = {}) {
   let headers, imports = [];
   let submit, release, downloads = 0, requests = 0, payload, registered = 0;
   const button = { disabled: true, innerHTML: 'Descargar' };
+  const emailNode = { value: address, message: '', setCustomValidity(m) { this.message = m; }, addEventListener() {} };
   const form = { style: {}, querySelector: () => button,
     addEventListener: (type, callback) => { if (type === 'submit') submit = callback; },
-    checkValidity: () => valid, reportValidity() {}, setAttribute() {}, removeAttribute() {} };
-  const nodes = { 'form-lead-magnet': form, 'lm-email': { value: ' qa@example.invalid ' },
+    checkValidity: () => valid && !emailNode.message, reportValidity() {}, setAttribute() {}, removeAttribute() {} };
+  const nodes = { 'form-lead-magnet': form, 'lm-email': emailNode,
     'lm-consent': { checked }, 'lm-error': { hidden: true, focus() {} },
     'lm-success': { hidden: true, focus() {} }, 'lm-website': { value: honeypot }, 'lm-download': { click() { downloads++; } } };
   let now = 1000;
@@ -68,7 +69,11 @@ async function check({ valid = true, checked = true, mode = 'success', honeypot 
   }
   await first;
   assert.equal(button.disabled, false);
-  if (honeypot || elapsed < 3000) {
+  if (/@gmail\.com|@hotmail\./i.test(address)) {
+    assert.equal(requests, 0);
+    assert.equal(downloads, 0);
+    assert.match(emailNode.message, /institucional/);
+  } else if (honeypot || elapsed < 3000) {
     assert.equal(requests, 0);
     assert.equal(registered, 0);
     assert.equal(downloads, 1);
@@ -102,8 +107,11 @@ async function check({ valid = true, checked = true, mode = 'success', honeypot 
   await check({ valid: false });
   await check({ checked: false });
   await check({ appCheck: 'fail' });
+  await check({ address: 'p.ik.uba.c0.96@gmail.com' });
+  await check({ address: 'Alguien@Hotmail.com.mx' });
+  await check({ address: 'ana@jalisco.gob.mx' });
   await check({ honeypot: 'https://spam.example' });
   await check({ elapsed: 800 });
   for (const mode of ['double', 'offline', 'timeout', 'rejected', 'incomplete']) await check({ mode });
-  console.log('PASS: App Check token header, App Check fallback, honeypot, fast-submit trap, save confirmation, validation, consent, double submit, network failure, timeout, rejected and incomplete responses');
+  console.log('PASS: personal-email block, App Check token header, App Check fallback, honeypot, fast-submit trap, save confirmation, validation, consent, double submit, network failure, timeout, rejected and incomplete responses');
 })().catch(error => { console.error(error); process.exitCode = 1; });

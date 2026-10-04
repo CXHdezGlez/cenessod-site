@@ -10,6 +10,8 @@ La descarga se inicia únicamente tras recibir confirmación del commit de Fires
 
 El PDF continúa siendo un recurso público de GitHub Pages; este flujo es captura de registros, no un control de acceso al archivo.
 
+Solo correos institucionales o corporativos (desde 3 oct 2026): las reglas rechazan dominios de correo personal y desechable (Gmail, Outlook/Hotmail/Live, Yahoo, iCloud, Proton, GMX, Zoho, Yandex, Prodigy, etc.). El script usa la misma lista y avisa antes de enviar. Si se agrega un dominio, cambiarlo en ambos lugares y volver a publicar las reglas.
+
 Antibots en la página (desde 3 oct 2026): campo trampa oculto `lm-website` (honeypot) y tiempo mínimo de 3 s entre la carga y el envío. Si se activan, se muestra el éxito y la descarga pero no se guarda el registro. Ambos filtros viven solo en el navegador: un bot que llame directo a la API REST los evita.
 
 App Check (desde 3 oct 2026): app web `1:102125314463:web:a10a03f91dbae374131daa`, proveedor Fraud Defense (reCAPTCHA Enterprise), clave `6Ld2y90tAAAAAP_ZjgM49yvqVLDgQ7on_VdIDRxd` ("cenessod.com App Check", tipo Web basada en puntuación, dominio cenessod.com, creada en Google Cloud → Fraud Defense). reCAPTCHA Classic ya no admite registros nuevos en App Check; las claves v3 `6LdQ090t…` no se usan. El script carga el SDK 12.19.0 desde gstatic al primer foco en el formulario y envía el token en el encabezado `X-Firebase-AppCheck`. Si no obtiene token, envía sin él: el registro solo se rechaza cuando App Check está en modo "Aplicar" para Cloud Firestore. Antes de activarlo, comprobar en App Check → APIs → Cloud Firestore que las solicitudes aparecen como verificadas. Para pruebas locales (localhost) se necesita un token de depuración de App Check.

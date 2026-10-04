@@ -8,6 +8,8 @@ service cloud.firestore {
         && request.resource.data.email is string
         && request.resource.data.email.size() <= 254
         && request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$')
+        // Solo correos institucionales o corporativos: se rechazan dominios de correo personal y desechable.
+        && !request.resource.data.email.lower().matches('^[^@]+@(gmail\\.com|googlemail\\.com|hotmail\\.[a-z.]+|outlook\\.[a-z.]+|live\\.[a-z.]+|msn\\.com|windowslive\\.com|yahoo\\.[a-z.]+|ymail\\.com|rocketmail\\.com|icloud\\.com|me\\.com|mac\\.com|aol\\.com|aim\\.com|protonmail\\.(com|ch)|proton\\.me|pm\\.me|gmx\\.[a-z.]+|mail\\.com|email\\.com|zoho\\.com|zohomail\\.com|yandex\\.[a-z.]+|ya\\.ru|mail\\.ru|tutanota\\.com|tutamail\\.com|tuta\\.io|hey\\.com|fastmail\\.com|prodigy\\.net\\.mx|qq\\.com|163\\.com|126\\.com|mailinator\\.com|guerrillamail\\.[a-z.]+|sharklasers\\.com|10minutemail\\.[a-z.]+|temp-mail\\.[a-z.]+|tempmail\\.[a-z.]+|yopmail\\.[a-z.]+)$')
         && request.resource.data.consentimiento == true
         && request.resource.data.consentimientoVersion == 'manual-publicaciones-v1'
         && request.resource.data.recurso == 'manual-metodologico-2026'

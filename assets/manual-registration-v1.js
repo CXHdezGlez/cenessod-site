@@ -9,6 +9,11 @@
   const success = document.getElementById('lm-success');
   const download = document.getElementById('lm-download');
   const trap = document.getElementById('lm-website');
+  // Igual que en firestore.rules: dominios de correo personal o desechable que no se aceptan.
+  const PERSONAL_EMAIL = /^[^@]+@(gmail\.com|googlemail\.com|hotmail\.[a-z.]+|outlook\.[a-z.]+|live\.[a-z.]+|msn\.com|windowslive\.com|yahoo\.[a-z.]+|ymail\.com|rocketmail\.com|icloud\.com|me\.com|mac\.com|aol\.com|aim\.com|protonmail\.(com|ch)|proton\.me|pm\.me|gmx\.[a-z.]+|mail\.com|email\.com|zoho\.com|zohomail\.com|yandex\.[a-z.]+|ya\.ru|mail\.ru|tutanota\.com|tutamail\.com|tuta\.io|hey\.com|fastmail\.com|prodigy\.net\.mx|qq\.com|163\.com|126\.com|mailinator\.com|guerrillamail\.[a-z.]+|sharklasers\.com|10minutemail\.[a-z.]+|temp-mail\.[a-z.]+|tempmail\.[a-z.]+|yopmail\.[a-z.]+)$/i;
+  const PERSONAL_MSG = 'Usa tu correo institucional o corporativo. No aceptamos correos personales como Gmail, Outlook, Hotmail, Yahoo o iCloud.';
+  const checkDomain = () => email.setCustomValidity(PERSONAL_EMAIL.test(email.value.trim()) ? PERSONAL_MSG : '');
+  if (email.addEventListener) email.addEventListener('input', checkDomain);
   const buttonLabel = button.innerHTML;
   // Antibots: un humano tarda más de unos segundos en escribir su correo y marcar el consentimiento.
   const MIN_FILL_MS = 3000;
@@ -71,6 +76,7 @@
     event.preventDefault();
     if (submitting) return;
     email.value = email.value.trim();
+    checkDomain();
     if (!form.checkValidity() || !consent.checked) {
       form.reportValidity();
       return;
