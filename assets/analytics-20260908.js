@@ -2,6 +2,10 @@
   'use strict';
   const ID = 'G-CQW2FCB8H5', KEY = 'cenessod-consent-v2';
   const production = location.hostname === 'cenessod.com' || location.hostname === 'www.cenessod.com';
+  const INTERNAL_KEY = 'cenessod-internal';
+  // Visitar cualquier página con ?interno=1 marca este navegador como tráfico interno; ?interno=0 lo desmarca.
+  try { const flag = new URLSearchParams(location.search).get('interno'); if (flag === '1') localStorage.setItem(INTERNAL_KEY, '1'); else if (flag === '0') localStorage.removeItem(INTERNAL_KEY); } catch { /* Sin almacenamiento, se mide como visita normal. */ }
+  function isInternal() { try { return localStorage.getItem(INTERNAL_KEY) === '1'; } catch { return false; } }
   let enabled = false, loaded = false, advertising = false, opener;
   function readChoice() {
     try { const v = JSON.parse((localStorage.getItem(KEY) || localStorage.getItem('cenessod-analytics-v1'))); return v && ['denied', 'granted', 'measurement'].includes(v.choice) && Date.now() - v.at < 180 * 86400000 ? v.choice : null; } catch { return null; }
@@ -24,6 +28,7 @@
     if (!advertising) clearCookies(true);
     if (firstLoad) gtag('js', new Date());
     const config = { allow_google_signals: false, allow_ad_personalization_signals: false, cookie_expires: 15552000, send_page_view: firstLoad, page_location: cleanURL(location.href, advertising), page_referrer: cleanURL(document.referrer) };
+    if (isInternal()) config.traffic_type = 'internal';
     const params = new URLSearchParams(location.search);
     ['source', 'medium', 'campaign', 'term', 'content'].forEach(k => {
       const value = params.get('utm_' + k);
